@@ -17,4 +17,4 @@
 
 ### Sample ： 
 
-[https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-starter-socketio](https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-starter-socketio "spring-boot-starter-socketio")
+[https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio](https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio "spring-boot-sample-socketio")
