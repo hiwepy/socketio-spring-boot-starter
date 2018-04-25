@@ -15,13 +15,8 @@
  */
 package com.corundumstudio.socketio.spring.boot.handler;
 
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,33 +29,6 @@ public class AbstractSocketEventHandler {
 
 	private static Logger LOG = LoggerFactory.getLogger(AbstractSocketEventHandler.class);
 
-	private Map<UUID, SocketIOClient> clients = new ConcurrentHashMap<UUID, SocketIOClient>();
-	
-	/**
-	 * 抽象定时器，定时清理无效的连接
-	 * @param delay  delay in milliseconds before task is to be executed.
-     * @param period time in milliseconds between successive task executions.
-	 */
-	public AbstractSocketEventHandler(long delay, long period) {
-		
-		new Timer(true).schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				
-				Iterator<Entry<UUID, SocketIOClient>> clientIter = clients.entrySet().iterator();
-				while (clientIter.hasNext()) {
-					Entry<UUID, SocketIOClient> entry = clientIter.next();
-					if (entry.getValue().isChannelOpen()) {
-						clients.remove(entry.getKey());
-					}
-				}
-				
-			}
-		}, delay, period);
-		
-	}
-	
 	// 添加connect事件，当客户端发起连接时调用，本文中将clientid与sessionid存入数据库
 	// 方便后面发送消息时查找到对应的目标client,
 	@OnConnect
@@ -78,11 +46,10 @@ public class AbstractSocketEventHandler {
 	public void onDisconnect(SocketIOClient client) {
 		LOG.debug("Disconnect OK.");
 		LOG.debug("Session ID  : %s", client.getSessionId());
-		clients.remove(client.getSessionId());
 	}
 
-	public Map<UUID, SocketIOClient> getClients() {
-		return clients;
+	public Map<UUID, SocketIOClient> getClients(Object key) {
+		return SocketIOClientHolder.getClients(key);
 	}
 	
 }
