@@ -21,18 +21,18 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.corundumstudio.socketio.SocketIOClient;
 
-abstract class SocketIOClientHolder {
+public abstract class SocketIOClientHolder {
 
-	private static final ConcurrentHashMap<Object, Map<UUID, SocketIOClient>> COMPLIED_CLIENTS = new ConcurrentHashMap<Object, Map<UUID, SocketIOClient>>();
+	private static final ConcurrentHashMap<String, Map<UUID, SocketIOClient>> COMPLIED_CLIENTS = new ConcurrentHashMap<String, Map<UUID, SocketIOClient>>();
 
-	public static Map<UUID, SocketIOClient> getClients(Object key) {
-		if (key != null) {
-			Map<UUID, SocketIOClient> ret = COMPLIED_CLIENTS.get(key);
+	public static Map<UUID, SocketIOClient> getClients(String group) {
+		if (group != null) {
+			Map<UUID, SocketIOClient> ret = COMPLIED_CLIENTS.get(group);
 			if (ret != null) {
 				return ret;
 			}
 			ret = new ConcurrentHashMap<UUID, SocketIOClient>();
-			Map<UUID, SocketIOClient> existing = COMPLIED_CLIENTS.putIfAbsent(key, ret);
+			Map<UUID, SocketIOClient> existing = COMPLIED_CLIENTS.putIfAbsent(group, ret);
 			if (existing != null) {
 				ret = existing;
 			}

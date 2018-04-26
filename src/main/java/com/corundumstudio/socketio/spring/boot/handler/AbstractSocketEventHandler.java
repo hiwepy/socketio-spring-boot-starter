@@ -48,8 +48,8 @@ public class AbstractSocketEventHandler {
 		LOG.debug("Session ID  : %s", client.getSessionId());
 	}
 
-	public Map<UUID, SocketIOClient> getClients(Object key) {
-		return SocketIOClientHolder.getClients(key);
+	public Map<UUID, SocketIOClient> getClients(String group) {
+		return SocketIOClientHolder.getClients(group);
 	}
 	
 }
