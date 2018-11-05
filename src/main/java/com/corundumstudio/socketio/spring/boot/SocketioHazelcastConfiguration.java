@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,16 +30,19 @@ public class SocketioHazelcastConfiguration {
 	private SocketioHazelcastProperties config;
 	
 	@Bean
+	@ConditionalOnMissingBean
 	public HazelcastInstance hazelcastClient() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
 	
 	@Bean
+	@ConditionalOnMissingBean
 	public HazelcastInstance hazelcastPub() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
 	
 	@Bean
+	@ConditionalOnMissingBean
 	public HazelcastInstance hazelcastSub() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
