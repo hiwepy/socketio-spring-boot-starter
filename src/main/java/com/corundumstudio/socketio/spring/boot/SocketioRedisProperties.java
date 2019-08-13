@@ -21,10 +21,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(SocketioRedisProperties.PREFIX)
 public class SocketioRedisProperties extends Config {
 
-	public static final String PREFIX = "spring.socketio.redis";
+	public static final String PREFIX = "spring.socketio.redisson";
 
 	/**
-	 * Enable Socketio Redis Store.
+	 * Enable Socketio Redis Store With Redisson.
 	 */
 	private boolean enabled = false;
 	
