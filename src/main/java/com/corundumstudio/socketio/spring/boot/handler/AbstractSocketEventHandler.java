@@ -15,20 +15,21 @@
  */
 package com.corundumstudio.socketio.spring.boot.handler;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.corundumstudio.socketio.SocketIOClient;
+import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
 
 public class AbstractSocketEventHandler {
 
 	private static Logger LOG = LoggerFactory.getLogger(AbstractSocketEventHandler.class);
-
+	private SocketIOServer socketIOServer;
+	
 	// 添加connect事件，当客户端发起连接时调用，本文中将clientid与sessionid存入数据库
 	// 方便后面发送消息时查找到对应的目标client,
 	@OnConnect
@@ -48,8 +49,16 @@ public class AbstractSocketEventHandler {
 		LOG.debug("Session ID  : %s", client.getSessionId());
 	}
 
-	public Map<UUID, SocketIOClient> getClients(String group) {
-		return SocketIOClientHolder.getClients(group);
+	public Collection<SocketIOClient> getClients(String group) {
+		return getSocketIOServer().getNamespace(group).getAllClients();
+	}
+
+	public SocketIOServer getSocketIOServer() {
+		return socketIOServer;
+	}
+
+	public void setSocketIOServer(SocketIOServer socketIOServer) {
+		this.socketIOServer = socketIOServer;
 	}
 	
 }
