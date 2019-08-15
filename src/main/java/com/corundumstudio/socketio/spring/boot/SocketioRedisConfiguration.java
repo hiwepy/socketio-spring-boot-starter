@@ -89,7 +89,7 @@ public class SocketioRedisConfiguration {
 				redisConfig.useSentinelServers();
 			};break;
 			default: {
-				redisConfig.useSentinelServers();
+				redisConfig.useSingleServer();
 			};break;
 		}
 		
