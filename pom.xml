@@ -374,7 +374,6 @@
 		<netty.version>4.1.38.Final</netty.version>
 		<netty-socketio.version>1.7.17</netty-socketio.version>
 		<redisson.version>3.11.2</redisson.version>
-		<lettuce.version>5.1.8.RELEASE</lettuce.version>
 	</properties>
 
 	<dependencies>

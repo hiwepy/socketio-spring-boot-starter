@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,9 +25,7 @@ import com.corundumstudio.socketio.store.StoreFactory;
 import io.netty.channel.EventLoopGroup;
 
 @Configuration
-@AutoConfigureBefore( name = {
-	"com.corundumstudio.socketio.spring.boot.SocketioServerAutoConfiguration"
-})
+@AutoConfigureBefore({ SocketioServerAutoConfiguration.class, RedisAutoConfiguration.class})
 @ConditionalOnClass(name = {"org.redisson.api.RedissonClient"})
 @ConditionalOnProperty(prefix = SocketioRedissonProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ SocketioRedissonProperties.class })

@@ -2,10 +2,11 @@ package com.corundumstudio.socketio.spring.boot;
 
 import java.net.UnknownHostException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,17 +23,13 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
-@AutoConfigureBefore( name = {
-	"com.corundumstudio.socketio.spring.boot.SocketioServerAutoConfiguration"
-})
-@ConditionalOnClass(RedisTemplate.class)
+@AutoConfigureBefore({ SocketioServerAutoConfiguration.class, RedisAutoConfiguration.class})
 @ConditionalOnProperty(prefix = SocketioRedisTemplateProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ SocketioRedisTemplateProperties.class })
 public class SocketioRedisTemplateConfiguration {
 
-	@Bean(name = "redisTemplate")
-	@ConditionalOnMissingBean(name = "redisTemplate")
-	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
+	@Bean(name = "socketIoRedisTemplate")
+	public RedisTemplate<String, Object> socketIoRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(redisConnectionFactory);
 		
@@ -62,9 +59,8 @@ public class SocketioRedisTemplateConfiguration {
 		return redisTemplate;
 	}
 	
-	@Bean
-	@ConditionalOnMissingBean
-	public RedisMessageListenerContainer redisMessageListenerContainer(RedisConnectionFactory connectionFactory) {
+	@Bean(name = "socketIoRedisMessageListenerContainer")
+	public RedisMessageListenerContainer socketIoRedisMessageListenerContainer(RedisConnectionFactory connectionFactory) {
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
 		// 序列化对象（特别注意：发布的时候需要设置序列化；订阅方也需要设置序列化）
@@ -72,10 +68,10 @@ public class SocketioRedisTemplateConfiguration {
 		return container;
 	}
 	
-	
 	@Bean
-	public StoreFactory clientStoreFactory(RedisTemplate<Object, Object> redisTemplate, RedisMessageListenerContainer listenerContainer) {
-		return new RedisTemplateStoreFactory(redisTemplate, listenerContainer);
+	public StoreFactory clientStoreFactory(@Autowired @Qualifier("socketIoRedisTemplate") RedisTemplate<Object, Object> socketIoRedisTemplate, 
+			@Autowired @Qualifier("socketIoRedisMessageListenerContainer") RedisMessageListenerContainer listenerContainer) {
+		return new RedisTemplateStoreFactory(socketIoRedisTemplate, listenerContainer);
 	}
 
 }
