@@ -1,5 +1,6 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.corundumstudio.socketio.spring.boot.SocketioHazelcastConfiguration,\
-com.corundumstudio.socketio.spring.boot.SocketioRedisConfiguration,\
+com.corundumstudio.socketio.spring.boot.SocketioRedissonConfiguration,\
+com.corundumstudio.socketio.spring.boot.SocketioRedisTemplateConfiguration,\
 com.corundumstudio.socketio.spring.boot.SocketioServerAutoConfiguration

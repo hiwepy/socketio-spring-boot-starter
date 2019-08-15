@@ -23,10 +23,10 @@ import org.redisson.config.SingleServerConfig;
 import org.redisson.config.TransportMode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(SocketioRedisProperties.PREFIX)
-public class SocketioRedisProperties {
+@ConfigurationProperties(SocketioRedissonProperties.PREFIX)
+public class SocketioRedissonProperties {
 
-	public static final String PREFIX = "spring.socketio.redis";
+	public static final String PREFIX = "spring.socketio.redis.redisson";
 
 	public enum RedisServerMode {
 

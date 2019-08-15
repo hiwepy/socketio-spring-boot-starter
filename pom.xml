@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.4.RELEASE</version>
+		<version>2.1.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -374,6 +374,7 @@
 		<netty.version>4.1.38.Final</netty.version>
 		<netty-socketio.version>1.7.17</netty-socketio.version>
 		<redisson.version>3.11.2</redisson.version>
+		<lettuce.version>5.1.8.RELEASE</lettuce.version>
 	</properties>
 
 	<dependencies>
@@ -443,6 +444,18 @@
 		    <groupId>org.redisson</groupId>
 		    <artifactId>redisson</artifactId>
 		    <version>${redisson.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		<!-- For Spring Boot's Redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>

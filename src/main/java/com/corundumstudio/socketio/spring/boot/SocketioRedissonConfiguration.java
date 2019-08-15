@@ -28,11 +28,11 @@ import io.netty.channel.EventLoopGroup;
 	"com.corundumstudio.socketio.spring.boot.SocketioServerAutoConfiguration"
 })
 @ConditionalOnClass(name = {"org.redisson.api.RedissonClient"})
-@ConditionalOnProperty(prefix = SocketioRedisProperties.PREFIX, value = "enabled", havingValue = "true")
-@EnableConfigurationProperties({ SocketioRedisProperties.class })
-public class SocketioRedisConfiguration {
+@ConditionalOnProperty(prefix = SocketioRedissonProperties.PREFIX, value = "enabled", havingValue = "true")
+@EnableConfigurationProperties({ SocketioRedissonProperties.class })
+public class SocketioRedissonConfiguration {
 
-	protected static Logger LOG = LoggerFactory.getLogger(SocketioRedisConfiguration.class);
+	protected static Logger LOG = LoggerFactory.getLogger(SocketioRedissonConfiguration.class);
 	
 	@Bean
 	@ConditionalOnMissingBean
@@ -51,7 +51,7 @@ public class SocketioRedisConfiguration {
 
 	
 	@Bean
-	public Config redisConfig(SocketioRedisProperties config,
+	public Config redisConfig(SocketioRedissonProperties config,
 			AddressResolverGroupFactory addressResolverGroupFactory,
 			Codec codec, 
 			@Autowired(required = false) EventLoopGroup eventLoopGroup) {
