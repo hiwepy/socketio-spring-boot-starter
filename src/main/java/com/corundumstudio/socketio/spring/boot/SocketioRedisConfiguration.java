@@ -1,7 +1,6 @@
 package com.corundumstudio.socketio.spring.boot;
 
 import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
 import org.redisson.client.codec.Codec;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
@@ -100,20 +99,20 @@ public class SocketioRedisConfiguration {
 	
 	@Bean
 	@ConditionalOnMissingBean
-	public RedissonClient redisClient(Config redisConfig) {
-		return Redisson.create(redisConfig);
+	public Redisson redisClient(Config redisConfig) {
+		return (Redisson) Redisson.create(redisConfig);
 	}
 	
 	@Bean
 	@ConditionalOnMissingBean
-	public RedissonClient redisPub(Config redisConfig) {
-		return Redisson.create(redisConfig);
+	public Redisson redisPub(Config redisConfig) {
+		return  (Redisson) Redisson.create(redisConfig);
 	}
 	
 	@Bean
 	@ConditionalOnMissingBean
-	public RedissonClient redisSub(Config redisConfig) {
-		return Redisson.create(redisConfig);
+	public Redisson redisSub(Config redisConfig) {
+		return  (Redisson) Redisson.create(redisConfig);
 	}
 	
 	@Bean
