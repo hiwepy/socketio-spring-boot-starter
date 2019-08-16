@@ -21,42 +21,42 @@ package org.redisson.config;
  * @author ： <a href="https://github.com/vindell">wandl</a>
  */
 
-public class RedisConfig extends Config {
+public class RedissonConfig extends Config {
 
-	public RedisConfig() {
+	public RedissonConfig() {
 		super();
 	}
 
-	public RedisConfig(Config oldConf) {
+	public RedissonConfig(Config oldConf) {
 		super(oldConf);
 	}
 
-	public RedisConfig(ClusterServersConfig clusterServersConfig) {
+	public RedissonConfig(ClusterServersConfig clusterServersConfig) {
 		super();
 		useClusterServers(clusterServersConfig);
 	}
 
-	public RedisConfig(MasterSlaveServersConfig masterSlaveServersConfig) {
+	public RedissonConfig(MasterSlaveServersConfig masterSlaveServersConfig) {
 		super();
 		useMasterSlaveServers(masterSlaveServersConfig);
 	}
 
-	public RedisConfig(ReplicatedServersConfig replicatedServersConfig) {
+	public RedissonConfig(ReplicatedServersConfig replicatedServersConfig) {
 		super();
 		useReplicatedServers(replicatedServersConfig);
 	}
 
-	public RedisConfig(SentinelServersConfig sentinelServersConfig) {
+	public RedissonConfig(SentinelServersConfig sentinelServersConfig) {
 		super();
 		useSentinelServers(sentinelServersConfig);
 	}
 
-	public RedisConfig(SingleServerConfig singleServerConfig) {
+	public RedissonConfig(SingleServerConfig singleServerConfig) {
 		super();
 		useSingleServer(singleServerConfig);
 	}
 	
-	public RedisConfig(ClusterServersConfig clusterServersConfig,
+	public RedissonConfig(ClusterServersConfig clusterServersConfig,
 			MasterSlaveServersConfig masterSlaveServersConfig,
 			ReplicatedServersConfig replicatedServersConfig,
 			SentinelServersConfig sentinelServersConfig,

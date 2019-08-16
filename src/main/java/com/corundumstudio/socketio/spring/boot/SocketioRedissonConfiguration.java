@@ -4,7 +4,7 @@ import org.redisson.Redisson;
 import org.redisson.client.codec.Codec;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
-import org.redisson.config.RedisConfig;
+import org.redisson.config.RedissonConfig;
 import org.redisson.connection.AddressResolverGroupFactory;
 import org.redisson.connection.DnsAddressResolverGroupFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,67 +44,67 @@ public class SocketioRedissonConfiguration {
 	}
 	
 	@Bean
-	public Config redisConfig(SocketioRedissonProperties config,
+	public Config redissonConfig(SocketioRedissonProperties properties,
 			AddressResolverGroupFactory addressResolverGroupFactory,
 			Codec codec, 
 			@Autowired(required = false) EventLoopGroup eventLoopGroup) {
 		
-		RedisConfig redisConfig = new RedisConfig(config.getCluster(),
-				config.getMasterSlave(),
-				config.getReplicated(),
-				config.getSentinel(),
-				config.getSingle());
+		RedissonConfig config = new RedissonConfig(properties.getCluster(),
+				properties.getMasterSlave(),
+				properties.getReplicated(),
+				properties.getSentinel(),
+				properties.getSingle());
 		
-		redisConfig.setAddressResolverGroupFactory(addressResolverGroupFactory);
-		redisConfig.setCodec(codec);
-		redisConfig.setEventLoopGroup(eventLoopGroup);
-		redisConfig.setKeepPubSubOrder(config.isKeepPubSubOrder());
-		redisConfig.setLockWatchdogTimeout(config.getLockWatchdogTimeout());
-		redisConfig.setMaxCleanUpDelay(config.getMaxCleanUpDelay());
-		redisConfig.setMinCleanUpDelay(config.getMinCleanUpDelay());
-		redisConfig.setNettyThreads(config.getNettyThreads());
-		redisConfig.setReferenceEnabled(config.isReferenceEnabled());
-		redisConfig.setThreads(config.getThreads());
-		redisConfig.setTransportMode(config.getTransportMode());
-		redisConfig.setUseScriptCache(config.isUseScriptCache());
+		config.setAddressResolverGroupFactory(addressResolverGroupFactory);
+		config.setCodec(codec);
+		config.setEventLoopGroup(eventLoopGroup);
+		config.setKeepPubSubOrder(properties.isKeepPubSubOrder());
+		config.setLockWatchdogTimeout(properties.getLockWatchdogTimeout());
+		config.setMaxCleanUpDelay(properties.getMaxCleanUpDelay());
+		config.setMinCleanUpDelay(properties.getMinCleanUpDelay());
+		config.setNettyThreads(properties.getNettyThreads());
+		config.setReferenceEnabled(properties.isReferenceEnabled());
+		config.setThreads(properties.getThreads());
+		config.setTransportMode(properties.getTransportMode());
+		config.setUseScriptCache(properties.isUseScriptCache());
 		// 根据服务模式检查配置
-		switch (config.getServer()) {
+		switch (properties.getServer()) {
 			case CLUSTER: {
-				redisConfig.useClusterServers();
+				config.useClusterServers();
 			};break;
 			case MASTERSLAVE: {
-				redisConfig.useMasterSlaveServers();
+				config.useMasterSlaveServers();
 			};break;
 			case REPLICATED: {
-				redisConfig.useReplicatedServers();
+				config.useReplicatedServers();
 			};break;
 			case SENTINEL: {
-				redisConfig.useSentinelServers();
+				config.useSentinelServers();
 			};break;
 			default: {
-				redisConfig.useSingleServer();
+				config.useSingleServer();
 			};break;
 		}
 		
-		return redisConfig;
+		return config;
 	}
 	
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-	public Redisson redissonClient(Config redisConfig) {
-		return (Redisson) Redisson.create(redisConfig);
+	public Redisson redissonClient(Config redissonConfig) {
+		return (Redisson) Redisson.create(redissonConfig);
 	}
 	
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-	public Redisson redissonPub(Config redisConfig) {
-		return (Redisson) Redisson.create(redisConfig);
+	public Redisson redissonPub(Config redissonConfig) {
+		return (Redisson) Redisson.create(redissonConfig);
 	}
 	
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-	public Redisson redissonSub(Config redisConfig) {
-		return (Redisson) Redisson.create(redisConfig);
+	public Redisson redissonSub(Config redissonConfig) {
+		return (Redisson) Redisson.create(redissonConfig);
 	}
 	
 	@Bean
