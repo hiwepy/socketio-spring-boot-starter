@@ -1,9 +1,9 @@
 package com.corundumstudio.socketio.spring.boot;
 
+import java.io.IOException;
 import java.net.UnknownHostException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -23,15 +23,15 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
-@AutoConfigureBefore({ SocketioServerAutoConfiguration.class, RedisAutoConfiguration.class})
+@AutoConfigureAfter(RedisAutoConfiguration.class)
+@AutoConfigureBefore({ SocketioServerAutoConfiguration.class})
 @ConditionalOnProperty(prefix = SocketioRedisTemplateProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ SocketioRedisTemplateProperties.class })
 public class SocketioRedisTemplateConfiguration {
 
-	@Bean(name = "socketIoRedisTemplate")
-	public RedisTemplate<String, Object> socketIoRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
-		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-		redisTemplate.setConnectionFactory(redisConnectionFactory);
+	public RedisTemplate<Object, Object> socketIoRedisTemplate(RedisConnectionFactory connectionFactory) throws UnknownHostException {
+		RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
+		redisTemplate.setConnectionFactory(connectionFactory);
 		
 		// 使用Jackson2JsonRedisSerialize 替换默认序列化
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
@@ -59,7 +59,6 @@ public class SocketioRedisTemplateConfiguration {
 		return redisTemplate;
 	}
 	
-	@Bean(name = "socketIoRedisMessageListenerContainer")
 	public RedisMessageListenerContainer socketIoRedisMessageListenerContainer(RedisConnectionFactory connectionFactory) {
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
@@ -69,9 +68,8 @@ public class SocketioRedisTemplateConfiguration {
 	}
 	
 	@Bean
-	public StoreFactory clientStoreFactory(@Autowired @Qualifier("socketIoRedisTemplate") RedisTemplate<Object, Object> socketIoRedisTemplate, 
-			@Autowired @Qualifier("socketIoRedisMessageListenerContainer") RedisMessageListenerContainer listenerContainer) {
-		return new RedisTemplateStoreFactory(socketIoRedisTemplate, listenerContainer);
+	public StoreFactory clientStoreFactory(RedisConnectionFactory connectionFactory) throws IOException {
+		return new RedisTemplateStoreFactory(socketIoRedisTemplate(connectionFactory), socketIoRedisMessageListenerContainer(connectionFactory));
 	}
 
 }

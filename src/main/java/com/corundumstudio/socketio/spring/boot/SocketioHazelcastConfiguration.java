@@ -17,10 +17,8 @@ import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
 
 @Configuration
-@AutoConfigureBefore( name = {
-	"com.corundumstudio.socketio.spring.boot.SocketioServerAutoConfiguration"
-})
-@ConditionalOnClass(name = {"com.hazelcast.client.HazelcastClient"})
+@AutoConfigureBefore({ SocketioServerAutoConfiguration.class})
+@ConditionalOnClass({HazelcastClient.class})
 @ConditionalOnProperty(prefix = SocketioHazelcastProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ SocketioHazelcastProperties.class })
 public class SocketioHazelcastConfiguration {
@@ -29,19 +27,19 @@ public class SocketioHazelcastConfiguration {
 	@Autowired
 	private SocketioHazelcastProperties config;
 	
-	@Bean
+	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public HazelcastInstance hazelcastClient() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
 	
-	@Bean
+	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public HazelcastInstance hazelcastPub() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
 	
-	@Bean
+	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public HazelcastInstance hazelcastSub() {
 		return HazelcastClient.newHazelcastClient(config);

@@ -7,14 +7,11 @@ import org.redisson.config.Config;
 import org.redisson.config.RedisConfig;
 import org.redisson.connection.AddressResolverGroupFactory;
 import org.redisson.connection.DnsAddressResolverGroupFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,14 +22,12 @@ import com.corundumstudio.socketio.store.StoreFactory;
 import io.netty.channel.EventLoopGroup;
 
 @Configuration
-@AutoConfigureBefore({ SocketioServerAutoConfiguration.class, RedisAutoConfiguration.class})
-@ConditionalOnClass(name = {"org.redisson.api.RedissonClient"})
+@AutoConfigureBefore({ SocketioServerAutoConfiguration.class})
+@ConditionalOnClass({ Redisson.class })
 @ConditionalOnProperty(prefix = SocketioRedissonProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ SocketioRedissonProperties.class })
 public class SocketioRedissonConfiguration {
 
-	protected static Logger LOG = LoggerFactory.getLogger(SocketioRedissonConfiguration.class);
-	
 	@Bean
 	@ConditionalOnMissingBean
 	public Codec codec() {
@@ -47,7 +42,6 @@ public class SocketioRedissonConfiguration {
 	public AddressResolverGroupFactory addressResolverGroupFactory() {
 		return new DnsAddressResolverGroupFactory();
 	}
-
 	
 	@Bean
 	public Config redisConfig(SocketioRedissonProperties config,
@@ -95,23 +89,22 @@ public class SocketioRedissonConfiguration {
 		return redisConfig;
 	}
 	
-	
-	@Bean
+	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-	public Redisson redisClient(Config redisConfig) {
+	public Redisson redissonClient(Config redisConfig) {
 		return (Redisson) Redisson.create(redisConfig);
 	}
 	
-	@Bean
+	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-	public Redisson redisPub(Config redisConfig) {
-		return  (Redisson) Redisson.create(redisConfig);
+	public Redisson redissonPub(Config redisConfig) {
+		return (Redisson) Redisson.create(redisConfig);
 	}
 	
-	@Bean
+	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-	public Redisson redisSub(Config redisConfig) {
-		return  (Redisson) Redisson.create(redisConfig);
+	public Redisson redissonSub(Config redisConfig) {
+		return (Redisson) Redisson.create(redisConfig);
 	}
 	
 	@Bean
