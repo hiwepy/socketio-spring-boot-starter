@@ -32,25 +32,22 @@ public class SocketioServerAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public AuthorizationListener socketAuthzListener() {
-		AuthorizationListener authorizationListener = config.getAuthorizationListener();
-		return authorizationListener == null ? new SuccessAuthorizationListener() : authorizationListener;
+		return new SuccessAuthorizationListener();
 	}
 	
 	@Bean
 	@ConditionalOnMissingBean
 	public ExceptionListener exceptionListener() {
-		ExceptionListener exceptionListener = config.getExceptionListener();
-		return exceptionListener == null ? new DefaultExceptionListener() : exceptionListener;
+		return  new DefaultExceptionListener();
 	}
 	
 	@Bean
 	@ConditionalOnMissingBean
 	public StoreFactory clientStoreFactory() {
-		StoreFactory storeFactory = config.getStoreFactory();
-		return storeFactory == null ? new MemoryStoreFactory() : storeFactory;
+		return new MemoryStoreFactory();
 	}
 	
-	@Bean
+	@Bean(destroyMethod = "stop")
 	public SocketIOServer socketIOServer(AuthorizationListener socketAuthzListener,
 			ExceptionListener exceptionListener, StoreFactory clientStoreFactory) {
 
