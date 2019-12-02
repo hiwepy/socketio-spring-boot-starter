@@ -1,4 +1,4 @@
-# spring-boot-starter-socketio
+# socketio-spring-boot-starter
 
 
 #### 组件简介
@@ -13,7 +13,7 @@
 ``` xml
 <dependency>
 	<groupId>${project.groupId}</groupId>
-	<artifactId>spring-boot-starter-socketio</artifactId>
+	<artifactId>socketio-spring-boot-starter</artifactId>
 	<version>${project.version}</version>
 </dependency>
 ```
