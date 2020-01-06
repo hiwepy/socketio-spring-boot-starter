@@ -12,9 +12,9 @@
 
 ``` xml
 <dependency>
-	<groupId>${project.groupId}</groupId>
+	<groupId>com.github.hiwepy</groupId>
 	<artifactId>socketio-spring-boot-starter</artifactId>
-	<version>${project.version}</version>
+	<version>1.0.4.RELEASE</version>
 </dependency>
 ```
 
