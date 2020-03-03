@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.2.RELEASE</version>
+		<version>2.2.5.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -372,9 +372,9 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-surefire-plugin.vertsion>2.22.1</maven-surefire-plugin.vertsion>
 		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
-		<netty.version>4.1.45.Final</netty.version>
+		<netty.version>4.1.46.Final</netty.version>
 		<netty-socketio.version>1.7.18</netty-socketio.version>
-		<redisson.version>3.12.1</redisson.version>
+		<redisson.version>3.12.3</redisson.version>
 	</properties>
 
 	<dependencies>
