@@ -2,6 +2,7 @@ package com.corundumstudio.socketio.spring.boot;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -22,7 +23,7 @@ import com.corundumstudio.socketio.store.StoreFactory;
 @Configuration
 @ConditionalOnProperty(prefix = SocketioServerProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ SocketioServerProperties.class })
-public class SocketioServerAutoConfiguration {
+public class SocketioServerAutoConfiguration implements DisposableBean {
 
 	protected static Logger LOG = LoggerFactory.getLogger(SocketioServerAutoConfiguration.class);
 
@@ -72,6 +73,16 @@ public class SocketioServerAutoConfiguration {
 	@Bean
 	public SpringAnnotationScanner springAnnotationScanner(SocketIOServer socketServer) {
 		return new SpringAnnotationScanner(socketServer);
+	}
+	
+	@Autowired
+	protected SocketIOServer socketIOServer;
+	
+	@Override
+	public void destroy() throws Exception {
+		if (socketIOServer != null) {
+			socketIOServer.stop();
+		}
 	}
 
 }
