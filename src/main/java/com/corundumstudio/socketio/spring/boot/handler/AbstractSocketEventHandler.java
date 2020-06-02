@@ -25,10 +25,17 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
 
-public class AbstractSocketEventHandler {
+public abstract class AbstractSocketEventHandler {
 
 	private static Logger LOG = LoggerFactory.getLogger(AbstractSocketEventHandler.class);
 	private SocketIOServer socketIOServer;
+	
+	public AbstractSocketEventHandler() {
+	}
+	
+	public AbstractSocketEventHandler(SocketIOServer socketIOServer) {
+		this.socketIOServer = socketIOServer;
+	}
 	
 	// 添加connect事件，当客户端发起连接时调用，本文中将clientid与sessionid存入数据库
 	// 方便后面发送消息时查找到对应的目标client,
