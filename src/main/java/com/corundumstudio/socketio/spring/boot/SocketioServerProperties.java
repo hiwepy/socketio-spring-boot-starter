@@ -25,10 +25,17 @@ public class SocketioServerProperties extends Configuration {
 	public static final String PREFIX = "spring.socketio.server";
 
 	/**
+	 * If set to true, then useLinuxNativeEpoll property is passed to SocketIO server as is.
+	 * If set to false and useLinuxNativeEpoll set to true,
+	 * then additional check is performed if epoll library is available on classpath.
+	 */
+	private boolean failIfNativeEpollLibNotPresent = false;
+
+	/**
 	 * Enable Socketio Server.
 	 */
 	private boolean enabled = false;
-	
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -37,4 +44,11 @@ public class SocketioServerProperties extends Configuration {
 		this.enabled = enabled;
 	}
 
+	public boolean isFailIfNativeEpollLibNotPresent() {
+		return failIfNativeEpollLibNotPresent;
+	}
+
+	public void setFailIfNativeEpollLibNotPresent(boolean failIfNativeEpollLibNotPresent) {
+		this.failIfNativeEpollLibNotPresent = failIfNativeEpollLibNotPresent;
+	}
 }

@@ -1,5 +1,6 @@
 package com.corundumstudio.socketio.spring.boot;
 
+import io.netty.channel.epoll.Epoll;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -56,6 +57,13 @@ public class SocketioServerAutoConfiguration implements DisposableBean {
 		config.setAuthorizationListener(socketAuthzListener);
 		config.setExceptionListener(exceptionListener);
 		config.setStoreFactory(clientStoreFactory);
+
+		if (config.isUseLinuxNativeEpoll()
+				&& !config.isFailIfNativeEpollLibNotPresent()
+				&& !Epoll.isAvailable()) {
+			LOG.warn("Epoll library not available, disabling native epoll");
+			config.setUseLinuxNativeEpoll(false);
+		}
 
 		final SocketIOServer server = new SocketIOServer(config);
 		
