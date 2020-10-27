@@ -3,8 +3,7 @@
 
 #### 组件简介
 
-> 基于 [netty-socketio](https://github.com/mrniko/netty-socketio) 2.x 开源项目实现的Socket项目整合
-
+> 基于 [netty-socketio 2.x](https://github.com/mrniko/netty-socketio) 开源项目实现的Socket项目整合
 
 #### 使用说明
 
@@ -211,4 +210,12 @@ uni.onSocketClose(function (res) {
 
 #### 代码示例
 
-[https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio](https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio "spring-boot-sample-socketio")
+[https://github.com/hiwepy/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio](https://github.com/hiwepy/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio "spring-boot-sample-socketio")
+
+## Jeebiz 技术社区
+
+Jeebiz 技术社区 **微信公共号**、**小程序**，欢迎关注反馈意见和一起交流，关注公众号回复「Jeebiz」拉你入群。
+
+|公共号|小程序|
+|---|---|
+| ![](https://raw.githubusercontent.com/hiwepy/static/main/images/qrcode_for_gh_1d965ea2dfd1_344.jpg)| ![](https://raw.githubusercontent.com/hiwepy/static/main/images/gh_09d7d00da63e_344.jpg)|
