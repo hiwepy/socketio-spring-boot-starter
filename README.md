@@ -78,10 +78,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Socketio chat</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Socketio chat</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/socket.io/2.4.0/socket.io.min.js"></script>
 </head>
 <body>
     <h1>Netty-socketio chat demo</h1>
@@ -97,11 +97,15 @@
 </body>
 <script type="text/javascript">
 
-    var socket = io.connect('http://192.168.2.222:10065');
+    var socket = io.connect('ws://localhost:10065?userId=12121212',{	  
+	  path: "/socket.io"
+	});	 
+
     socket.on('connect',function() {
+	console.log(111111);
         output('<span class="connect-msg">Client has connected to the server!</span>');
     });
-    socket.on('onSocketEvent', function(data) {
+    socket.on('message', function(data) {
         output('<span class="username-msg">' + data.from + "对你说：" + data.content + '</span>');
     });
     socket.on('disconnect',function() {
@@ -114,7 +118,7 @@
         var from = $("#from").val();
         var to = $("#to").val();
         var content = $('#content').val();
-        socket.emit('onSocketEvent', {
+        socket.emit('message', {
             from : from,
             to : to,
             content : content
