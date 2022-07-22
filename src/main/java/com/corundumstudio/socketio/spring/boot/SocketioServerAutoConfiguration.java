@@ -1,6 +1,5 @@
 package com.corundumstudio.socketio.spring.boot;
 
-import io.netty.channel.epoll.Epoll;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -21,6 +20,8 @@ import com.corundumstudio.socketio.spring.boot.hooks.SocketioServerShutdownHook;
 import com.corundumstudio.socketio.store.MemoryStoreFactory;
 import com.corundumstudio.socketio.store.StoreFactory;
 
+import io.netty.channel.epoll.Epoll;
+
 @Configuration
 @ConditionalOnProperty(prefix = SocketioServerProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ SocketioServerProperties.class })
@@ -28,9 +29,6 @@ public class SocketioServerAutoConfiguration implements DisposableBean {
 
 	protected static Logger LOG = LoggerFactory.getLogger(SocketioServerAutoConfiguration.class);
 
-	@Autowired
-	private SocketioServerProperties config;
-	
 	@Bean
 	@ConditionalOnMissingBean
 	public AuthorizationListener socketAuthzListener() {
@@ -50,8 +48,11 @@ public class SocketioServerAutoConfiguration implements DisposableBean {
 	}
 	
 	@Bean(destroyMethod = "stop")
-	public SocketIOServer socketIOServer(AuthorizationListener socketAuthzListener,
-			ExceptionListener exceptionListener, StoreFactory clientStoreFactory) {
+	public SocketIOServer socketIOServer(
+			SocketioServerProperties config,
+			AuthorizationListener socketAuthzListener,
+			ExceptionListener exceptionListener, 
+			StoreFactory clientStoreFactory) {
 
 		// 身份验证
 		config.setAuthorizationListener(socketAuthzListener);

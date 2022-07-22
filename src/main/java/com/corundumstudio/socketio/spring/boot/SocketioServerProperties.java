@@ -22,7 +22,7 @@ import com.corundumstudio.socketio.Configuration;
 @ConfigurationProperties(SocketioServerProperties.PREFIX)
 public class SocketioServerProperties extends Configuration {
 
-	public static final String PREFIX = "spring.socketio.server";
+	public static final String PREFIX = "server.socketio";
 
 	/**
 	 * If set to true, then useLinuxNativeEpoll property is passed to SocketIO server as is.
@@ -30,20 +30,7 @@ public class SocketioServerProperties extends Configuration {
 	 * then additional check is performed if epoll library is available on classpath.
 	 */
 	private boolean failIfNativeEpollLibNotPresent = false;
-
-	/**
-	 * Enable Socketio Server.
-	 */
-	private boolean enabled = false;
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
+	
 	public boolean isFailIfNativeEpollLibNotPresent() {
 		return failIfNativeEpollLibNotPresent;
 	}
