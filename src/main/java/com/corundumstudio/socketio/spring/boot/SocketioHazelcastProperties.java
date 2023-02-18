@@ -22,7 +22,7 @@ import com.hazelcast.client.config.ClientConfig;
 @ConfigurationProperties(SocketioHazelcastProperties.PREFIX)
 public class SocketioHazelcastProperties extends ClientConfig {
 
-	public static final String PREFIX = "spring.socketio.hazelcast";
+	public static final String PREFIX = "socketio.hazelcast";
 
 	/**
 	 * Enable Socketio Hazelcast Store .
