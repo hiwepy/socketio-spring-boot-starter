@@ -20,7 +20,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(SocketioRedisTemplateProperties.PREFIX)
 public class SocketioRedisTemplateProperties {
 
-	public static final String PREFIX = "spring.socketio.redis.template";
+	public static final String PREFIX = "socketio.redis.template";
 
 	/**
 	 * Enable Socketio Redis Store With RedisTemplate.

@@ -26,7 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(SocketioRedissonProperties.PREFIX)
 public class SocketioRedissonProperties {
 
-	public static final String PREFIX = "spring.socketio.redis.redisson";
+	public static final String PREFIX = "socketio.redis.redisson";
 
 	public enum RedisServerMode {
 

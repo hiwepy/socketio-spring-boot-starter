@@ -22,7 +22,7 @@ import com.corundumstudio.socketio.Configuration;
 @ConfigurationProperties(SocketioServerProperties.PREFIX)
 public class SocketioServerProperties extends Configuration {
 
-	public static final String PREFIX = "server.socketio";
+	public static final String PREFIX = "socketio.server";
 
 	/**
 	 * If set to true, then useLinuxNativeEpoll property is passed to SocketIO server as is.
