@@ -366,8 +366,8 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
 		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
-		<netty-socketio.version>1.7.23</netty-socketio.version>
-		<redisson.version>3.17.7</redisson.version>
+		<netty-socketio.version>1.7.25</netty-socketio.version>
+		<redisson.version>3.17.4</redisson.version>
 	</properties>
 
 	<dependencies>
