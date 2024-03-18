@@ -15,12 +15,7 @@
  */
 package com.corundumstudio.socketio.spring.boot;
 
-import org.redisson.config.ClusterServersConfig;
-import org.redisson.config.MasterSlaveServersConfig;
-import org.redisson.config.ReplicatedServersConfig;
-import org.redisson.config.SentinelServersConfig;
-import org.redisson.config.SingleServerConfig;
-import org.redisson.config.TransportMode;
+import org.redisson.config.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(SocketioRedissonProperties.PREFIX)

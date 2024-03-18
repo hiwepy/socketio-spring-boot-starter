@@ -15,26 +15,25 @@
  */
 package com.corundumstudio.socketio.store;
 
-import java.util.Map;
-import java.util.UUID;
-
+import com.corundumstudio.socketio.store.pubsub.BaseStoreFactory;
+import com.corundumstudio.socketio.store.pubsub.PubSubStore;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
-import com.corundumstudio.socketio.store.pubsub.BaseStoreFactory;
-import com.corundumstudio.socketio.store.pubsub.PubSubStore;
+import java.util.Map;
+import java.util.UUID;
 
 public class RedisTemplateStoreFactory extends BaseStoreFactory {
 
 	private final RedisTemplate<Object, Object> redisTemplate;
 
     private final PubSubStore pubSubStore;
- 
+
     public RedisTemplateStoreFactory(RedisTemplate<Object, Object> redisTemplate, RedisMessageListenerContainer listenerContainer) {
         this.redisTemplate = redisTemplate;
         this.pubSubStore = new RedisTemplatePubSubStore(redisTemplate, listenerContainer, getNodeId());
     }
-    
+
     @Override
     public Store createStore(UUID sessionId) {
         return new RedisTemplateStore(sessionId, redisTemplate);
@@ -47,7 +46,7 @@ public class RedisTemplateStoreFactory extends BaseStoreFactory {
 
     @Override
     public void shutdown() {
-       
+
     }
 
     @Override

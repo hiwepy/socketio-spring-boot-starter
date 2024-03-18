@@ -1,5 +1,8 @@
 package com.corundumstudio.socketio.spring.boot;
 
+import com.corundumstudio.socketio.store.RedissonExtStoreFactory;
+import com.corundumstudio.socketio.store.StoreFactory;
+import io.netty.channel.EventLoopGroup;
 import org.redisson.Redisson;
 import org.redisson.client.codec.Codec;
 import org.redisson.codec.JsonJacksonCodec;
@@ -16,11 +19,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.corundumstudio.socketio.store.RedissonStoreFactory;
-import com.corundumstudio.socketio.store.StoreFactory;
-
-import io.netty.channel.EventLoopGroup;
-
 @Configuration
 @AutoConfigureBefore({ SocketioServerAutoConfiguration.class})
 @ConditionalOnClass({ Redisson.class })
@@ -33,7 +31,7 @@ public class SocketioRedissonConfiguration {
 	public Codec codec() {
 		return new JsonJacksonCodec();
 	}
-	
+
 	/**
      * AddressResolverGroupFactory switch between default and round robin
      */
@@ -42,19 +40,19 @@ public class SocketioRedissonConfiguration {
 	public AddressResolverGroupFactory addressResolverGroupFactory() {
 		return new DnsAddressResolverGroupFactory();
 	}
-	
+
 	@Bean
 	public Config redissonConfig(SocketioRedissonProperties properties,
 			AddressResolverGroupFactory addressResolverGroupFactory,
-			Codec codec, 
+			Codec codec,
 			@Autowired(required = false) EventLoopGroup eventLoopGroup) {
-		
+
 		RedissonConfig config = new RedissonConfig(properties.getCluster(),
 				properties.getMasterSlave(),
 				properties.getReplicated(),
 				properties.getSentinel(),
 				properties.getSingle());
-		
+
 		config.setAddressResolverGroupFactory(addressResolverGroupFactory);
 		config.setCodec(codec);
 		config.setEventLoopGroup(eventLoopGroup);
@@ -85,31 +83,31 @@ public class SocketioRedissonConfiguration {
 				config.useSingleServer();
 			};break;
 		}
-		
+
 		return config;
 	}
-	
+
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public Redisson redissonClient(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
-	
+
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public Redisson redissonPub(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
-	
+
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public Redisson redissonSub(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
-	
+
 	@Bean
 	public StoreFactory clientStoreFactory(Redisson redisClient, Redisson redisPub, Redisson redisSub) {
-		return new RedissonStoreFactory(redisClient, redisPub, redisSub);
+		return new RedissonExtStoreFactory(redisClient, redisPub, redisSub);
 	}
 
 }

@@ -15,11 +15,11 @@
  */
 package com.corundumstudio.socketio.store;
 
-import java.util.Map;
-import java.util.UUID;
-
 import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+
+import java.util.Map;
+import java.util.UUID;
 
 @SuppressWarnings("unchecked")
 public class RedisTemplateStore implements Store {
@@ -27,12 +27,12 @@ public class RedisTemplateStore implements Store {
     private final BoundHashOperations<Object, Object, Object> hashOperations;
 
     public RedisTemplateStore(UUID sessionId, RedisTemplate<Object, Object> redisTemplate) {
-    	this.hashOperations = redisTemplate.boundHashOps(sessionId);
+    	this.hashOperations = redisTemplate.boundHashOps(CacheKey.SOCKET_IO_SESSION.getKey(sessionId));
     }
 
     @Override
     public void set(String key, Object value) {
-    	hashOperations.put(key, value);  
+    	hashOperations.put(key, value);
     }
 
 	@Override

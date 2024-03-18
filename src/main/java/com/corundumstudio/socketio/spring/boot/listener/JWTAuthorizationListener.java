@@ -15,10 +15,9 @@
  */
 package com.corundumstudio.socketio.spring.boot.listener;
 
-import org.springframework.util.StringUtils;
-
 import com.corundumstudio.socketio.AuthorizationListener;
 import com.corundumstudio.socketio.HandshakeData;
+import org.springframework.util.StringUtils;
 
 /**
  * TODO
@@ -34,10 +33,10 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 
 	private String authorizationHeaderName = AUTHORIZATION_HEADER;
 	private String authorizationParamName = AUTHORIZATION_PARAM;
-	
+
 	@Override
 	public boolean isAuthorized(HandshakeData data) {
-		
+
 		String token = obtainToken(data);
 
 		if (token == null) {
@@ -45,11 +44,11 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 		}
 
 		token = token.trim();
-		
+
 		if(StringUtils.hasText(token)) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -62,7 +61,7 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 		}
 		return token;
 	}
-	
+
 	public String getAuthorizationHeaderName() {
 		return authorizationHeaderName;
 	}
@@ -78,5 +77,5 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 	public void setAuthorizationParamName(String authorizationParamName) {
 		this.authorizationParamName = authorizationParamName;
 	}
-	
+
 }

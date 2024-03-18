@@ -15,9 +15,8 @@
  */
 package com.corundumstudio.socketio.spring.boot;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import com.hazelcast.client.config.ClientConfig;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(SocketioHazelcastProperties.PREFIX)
 public class SocketioHazelcastProperties extends ClientConfig {
@@ -28,7 +27,7 @@ public class SocketioHazelcastProperties extends ClientConfig {
 	 * Enable Socketio Hazelcast Store .
 	 */
 	private boolean enabled = false;
-	
+
 	public boolean isEnabled() {
 		return enabled;
 	}

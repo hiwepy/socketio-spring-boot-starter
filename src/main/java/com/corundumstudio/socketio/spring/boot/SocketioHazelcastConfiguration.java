@@ -1,6 +1,6 @@
 package com.corundumstudio.socketio.spring.boot;
 
-import com.corundumstudio.socketio.store.HazelcastStoreFactory;
+import com.corundumstudio.socketio.store.HazelcastExtStoreFactory;
 import com.corundumstudio.socketio.store.StoreFactory;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
@@ -43,7 +43,7 @@ public class SocketioHazelcastConfiguration {
 
 	@Bean
 	public StoreFactory clientStoreFactory(HazelcastInstance hazelcastClient, HazelcastInstance hazelcastPub, HazelcastInstance hazelcastSub) {
-		return new HazelcastStoreFactory( hazelcastClient,  hazelcastPub, hazelcastSub);
+		return new HazelcastExtStoreFactory( hazelcastClient,  hazelcastPub, hazelcastSub);
 	}
 
 }

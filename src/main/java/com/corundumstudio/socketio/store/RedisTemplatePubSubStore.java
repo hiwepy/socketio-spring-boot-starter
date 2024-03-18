@@ -15,22 +15,20 @@
  */
 package com.corundumstudio.socketio.store;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ConcurrentMap;
-
+import com.corundumstudio.socketio.store.pubsub.PubSubListener;
+import com.corundumstudio.socketio.store.pubsub.PubSubMessage;
+import com.corundumstudio.socketio.store.pubsub.PubSubStore;
+import com.corundumstudio.socketio.store.pubsub.PubSubType;
+import io.netty.util.internal.PlatformDependent;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
-import com.corundumstudio.socketio.store.pubsub.PubSubListener;
-import com.corundumstudio.socketio.store.pubsub.PubSubMessage;
-import com.corundumstudio.socketio.store.pubsub.PubSubStore;
-import com.corundumstudio.socketio.store.pubsub.PubSubType;
-
-import io.netty.util.internal.PlatformDependent;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
 
 public class RedisTemplatePubSubStore implements PubSubStore {
 
@@ -44,7 +42,7 @@ public class RedisTemplatePubSubStore implements PubSubStore {
         this.redisTemplate = redisTemplate;
         this.listenerContainer = listenerContainer;
         this.nodeId = nodeId;
-    } 
+    }
 
     @Override
     public void publish(PubSubType type, PubSubMessage msg) {
@@ -60,14 +58,14 @@ public class RedisTemplatePubSubStore implements PubSubStore {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void onMessage(Message message, byte[] pattern) {
-				
+
 				byte[] body = message.getBody();
 				PubSubMessage msg = (PubSubMessage) redisTemplate.getValueSerializer().deserialize(body);
 				if (!nodeId.equals(msg.getNodeId())) {
                     listener.onMessage((T) msg);
                 }
 			}
-        	
+
         };
         listenerContainer.addMessageListener(msgListener, new ChannelTopic(name));
         Queue<MessageListener> list = map.get(name);
@@ -93,5 +91,5 @@ public class RedisTemplatePubSubStore implements PubSubStore {
     @Override
     public void shutdown() {
     }
- 
+
 }

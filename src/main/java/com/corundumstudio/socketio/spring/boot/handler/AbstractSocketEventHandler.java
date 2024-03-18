@@ -15,49 +15,61 @@
  */
 package com.corundumstudio.socketio.spring.boot.handler;
 
-import java.util.Collection;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.corundumstudio.socketio.BroadcastOperations;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collection;
+import java.util.UUID;
+
+@Slf4j
 public abstract class AbstractSocketEventHandler {
 
-	private static Logger LOG = LoggerFactory.getLogger(AbstractSocketEventHandler.class);
 	private SocketIOServer socketIOServer;
-	
+
 	public AbstractSocketEventHandler() {
 	}
-	
+
 	public AbstractSocketEventHandler(SocketIOServer socketIOServer) {
 		this.socketIOServer = socketIOServer;
 	}
-	
+
 	// 添加connect事件，当客户端发起连接时调用，本文中将clientid与sessionid存入数据库
 	// 方便后面发送消息时查找到对应的目标client,
 	@OnConnect
 	public void onConnect(SocketIOClient client) {
-		LOG.debug("Connect OK.");
-		LOG.debug("Session ID  : %s", client.getSessionId());
-		LOG.debug("HttpHeaders : %s", client.getHandshakeData().getHttpHeaders());
-		LOG.debug("UrlParams   : %s", client.getHandshakeData().getUrlParams());
-		
+		log.debug("Connect OK.");
+		log.debug("Session ID  : %s", client.getSessionId());
+		log.debug("HttpHeaders : %s", client.getHandshakeData().getHttpHeaders());
+		log.debug("UrlParams   : %s", client.getHandshakeData().getUrlParams());
+
 		client.sendEvent("welcome", "ok");
 	}
-	
+
 	// 添加@OnDisconnect事件，客户端断开连接时调用，刷新客户端信息
 	@OnDisconnect
 	public void onDisconnect(SocketIOClient client) {
-		LOG.debug("Disconnect OK.");
-		LOG.debug("Session ID  : %s", client.getSessionId());
+		log.debug("Disconnect OK.");
+		log.debug("Session ID  : %s", client.getSessionId());
 	}
 
-	public Collection<SocketIOClient> getClients(String group) {
-		return getSocketIOServer().getNamespace(group).getAllClients();
+	public Collection<SocketIOClient> getClients(String namespace) {
+		return getSocketIOServer().getNamespace(namespace).getAllClients();
+	}
+
+	public SocketIOClient getClient(String namespace, UUID sessionId) {
+		return getSocketIOServer().getNamespace(namespace).getClient(sessionId);
+	}
+
+	public BroadcastOperations getBroadcastOperations(String namespace) {
+		return getSocketIOServer().getNamespace(namespace).getBroadcastOperations();
+	}
+
+	public BroadcastOperations getBroadcastOperations(String namespace, String room) {
+		return getSocketIOServer().getNamespace(namespace).getRoomOperations(room);
 	}
 
 	public SocketIOServer getSocketIOServer() {
@@ -67,5 +79,5 @@ public abstract class AbstractSocketEventHandler {
 	public void setSocketIOServer(SocketIOServer socketIOServer) {
 		this.socketIOServer = socketIOServer;
 	}
-	
+
 }

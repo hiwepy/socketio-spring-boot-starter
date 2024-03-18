@@ -15,9 +15,8 @@
  */
 package com.corundumstudio.socketio.spring.boot;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import com.corundumstudio.socketio.Configuration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(SocketioServerProperties.PREFIX)
 public class SocketioServerProperties extends Configuration {
@@ -30,7 +29,7 @@ public class SocketioServerProperties extends Configuration {
 	 * then additional check is performed if epoll library is available on classpath.
 	 */
 	private boolean failIfNativeEpollLibNotPresent = false;
-	
+
 	public boolean isFailIfNativeEpollLibNotPresent() {
 		return failIfNativeEpollLibNotPresent;
 	}
