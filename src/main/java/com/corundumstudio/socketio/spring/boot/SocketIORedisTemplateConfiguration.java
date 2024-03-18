@@ -23,10 +23,10 @@ import java.net.UnknownHostException;
 
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-@AutoConfigureBefore({ SocketioServerAutoConfiguration.class})
-@ConditionalOnProperty(prefix = SocketioRedisTemplateProperties.PREFIX, value = "enabled", havingValue = "true")
-@EnableConfigurationProperties({ SocketioRedisTemplateProperties.class })
-public class SocketioRedisTemplateConfiguration {
+@AutoConfigureBefore({ SocketIOServerAutoConfiguration.class})
+@ConditionalOnProperty(prefix = SocketIORedisTemplateProperties.PREFIX, value = "enabled", havingValue = "true")
+@EnableConfigurationProperties({ SocketIORedisTemplateProperties.class })
+public class SocketIORedisTemplateConfiguration {
 
 	public RedisTemplate<Object, Object> socketIoRedisTemplate(RedisConnectionFactory connectionFactory) throws UnknownHostException {
 		RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();

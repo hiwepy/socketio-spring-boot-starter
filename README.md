@@ -23,10 +23,13 @@
 #################################################################################################
 ### SocketIO 配置：
 #################################################################################################
-socketio:
-  redis:
+socket-io:
+  # 分布式配置
+  cache:
+    hazelcast:
+      enabled: false
     redisson:
-      enabled: true
+      enabled: false
       server: single
       single:
         address: redis://192.168.2.237:6379
@@ -34,8 +37,8 @@ socketio:
         client-name: redis
         connection-minimum-idle-size: 5
         connection-pool-size: 50
-    template:
-      enabled: false
+    redis-template:
+      enabled: true
   # 服务端配置
   server:
     enabled: true
@@ -66,7 +69,7 @@ socketio:
       reuse-address: true
       tcp-no-delay: true
       so-linger: 0
-    ack-mode: auto
+    ack-mode: manual
     allow-custom-requests: true
     ## sessionID 通过请求头io来获取
     random-session: false
@@ -79,7 +82,7 @@ socketio:
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Socketio chat</title>
+    <title>SocketIO chat</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/socket.io/2.4.0/socket.io.min.js"></script>
 </head>

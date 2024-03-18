@@ -17,13 +17,13 @@ package com.corundumstudio.socketio.spring.boot;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(SocketioRedisTemplateProperties.PREFIX)
-public class SocketioRedisTemplateProperties {
+@ConfigurationProperties(SocketIORedisTemplateProperties.PREFIX)
+public class SocketIORedisTemplateProperties {
 
-	public static final String PREFIX = "socketio.redis.template";
+	public static final String PREFIX = "socket-io.cache.redis-template";
 
 	/**
-	 * Enable Socketio Redis Store With RedisTemplate.
+	 * Enable SocketIO Redis Store With RedisTemplate.
 	 */
 	private boolean enabled = false;
 

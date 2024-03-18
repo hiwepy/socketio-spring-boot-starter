@@ -18,10 +18,10 @@ package com.corundumstudio.socketio.spring.boot;
 import org.redisson.config.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(SocketioRedissonProperties.PREFIX)
-public class SocketioRedissonProperties {
+@ConfigurationProperties(SocketIORedissonProperties.PREFIX)
+public class SocketIORedissonProperties {
 
-	public static final String PREFIX = "socketio.redis.redisson";
+	public static final String PREFIX = "socket-io.cache.redisson";
 
 	public enum RedisServerMode {
 
@@ -49,7 +49,7 @@ public class SocketioRedissonProperties {
 	}
 
 	/**
-	 * Enable Socketio Redis Store With Redisson.
+	 * Enable SocketIO Redis Store With Redisson.
 	 */
 	private boolean enabled = false;
 

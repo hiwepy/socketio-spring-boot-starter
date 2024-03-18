@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SocketioServerApplication {
+public class SocketIOServerApplication {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(SocketioServerApplication.class, args);
+        SpringApplication.run(SocketIOServerApplication.class, args);
     }
 
 }

@@ -18,13 +18,13 @@ package com.corundumstudio.socketio.spring.boot;
 import com.hazelcast.client.config.ClientConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(SocketioHazelcastProperties.PREFIX)
-public class SocketioHazelcastProperties extends ClientConfig {
+@ConfigurationProperties(SocketIOHazelcastProperties.PREFIX)
+public class SocketIOHazelcastProperties extends ClientConfig {
 
-	public static final String PREFIX = "socketio.hazelcast";
+	public static final String PREFIX = "socket-io.cache.hazelcast";
 
 	/**
-	 * Enable Socketio Hazelcast Store .
+	 * Enable SocketIO Hazelcast Store .
 	 */
 	private boolean enabled = false;
 

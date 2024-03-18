@@ -14,14 +14,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@AutoConfigureBefore({ SocketioServerAutoConfiguration.class})
+@AutoConfigureBefore({ SocketIOServerAutoConfiguration.class})
 @ConditionalOnClass({HazelcastClient.class})
-@ConditionalOnProperty(prefix = SocketioHazelcastProperties.PREFIX, value = "enabled", havingValue = "true")
-@EnableConfigurationProperties({ SocketioHazelcastProperties.class })
-public class SocketioHazelcastConfiguration {
+@ConditionalOnProperty(prefix = SocketIOHazelcastProperties.PREFIX, value = "enabled", havingValue = "true")
+@EnableConfigurationProperties({ SocketIOHazelcastProperties.class })
+public class SocketIOHazelcastConfiguration {
 
 	@Autowired
-	private SocketioHazelcastProperties config;
+	private SocketIOHazelcastProperties config;
 
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean

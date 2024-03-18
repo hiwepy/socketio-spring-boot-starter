@@ -6,7 +6,7 @@ import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
 import com.corundumstudio.socketio.handler.SuccessAuthorizationListener;
 import com.corundumstudio.socketio.listener.DefaultExceptionListener;
 import com.corundumstudio.socketio.listener.ExceptionListener;
-import com.corundumstudio.socketio.spring.boot.hooks.SocketioServerShutdownHook;
+import com.corundumstudio.socketio.spring.boot.hooks.SocketIOServerShutdownHook;
 import com.corundumstudio.socketio.store.MemoryStoreFactory;
 import com.corundumstudio.socketio.store.StoreFactory;
 import com.corundumstudio.socketio.store.pubsub.PubSubStore;
@@ -22,10 +22,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnProperty(prefix = SocketioServerProperties.PREFIX, value = "enabled", havingValue = "true")
-@EnableConfigurationProperties({ SocketioServerProperties.class })
+@ConditionalOnProperty(prefix = SocketIOServerProperties.PREFIX, value = "enabled", havingValue = "true")
+@EnableConfigurationProperties({ SocketIOServerProperties.class })
 @Slf4j
-public class SocketioServerAutoConfiguration implements DisposableBean, CommandLineRunner {
+public class SocketIOServerAutoConfiguration implements DisposableBean, CommandLineRunner {
 
 	@Bean
 	@ConditionalOnMissingBean
@@ -47,7 +47,7 @@ public class SocketioServerAutoConfiguration implements DisposableBean, CommandL
 
 	@Bean(destroyMethod = "stop")
 	public SocketIOServer socketIOServer(
-			SocketioServerProperties config,
+			SocketIOServerProperties config,
 			AuthorizationListener authorizationListener,
 			ExceptionListener exceptionListener,
 			StoreFactory clientStoreFactory) {
@@ -98,7 +98,7 @@ public class SocketioServerAutoConfiguration implements DisposableBean, CommandL
 			 * 应用退出时，要调用shutdown来清理资源，关闭网络连接，注销自己
 			 * 注意：我们建议应用在JBOSS、Tomcat等容器的退出钩子里调用shutdown方法
 			 */
-			Runtime.getRuntime().addShutdownHook(new SocketioServerShutdownHook(socketIOServer));
+			Runtime.getRuntime().addShutdownHook(new SocketIOServerShutdownHook(socketIOServer));
 
 			socketIOServer.start();
 		}

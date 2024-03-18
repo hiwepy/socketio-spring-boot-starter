@@ -20,11 +20,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@AutoConfigureBefore({ SocketioServerAutoConfiguration.class})
+@AutoConfigureBefore({ SocketIOServerAutoConfiguration.class})
 @ConditionalOnClass({ Redisson.class })
-@ConditionalOnProperty(prefix = SocketioRedissonProperties.PREFIX, value = "enabled", havingValue = "true")
-@EnableConfigurationProperties({ SocketioRedissonProperties.class })
-public class SocketioRedissonConfiguration {
+@ConditionalOnProperty(prefix = SocketIORedissonProperties.PREFIX, value = "enabled", havingValue = "true")
+@EnableConfigurationProperties({ SocketIORedissonProperties.class })
+public class SocketIORedissonConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
@@ -42,10 +42,10 @@ public class SocketioRedissonConfiguration {
 	}
 
 	@Bean
-	public Config redissonConfig(SocketioRedissonProperties properties,
-			AddressResolverGroupFactory addressResolverGroupFactory,
-			Codec codec,
-			@Autowired(required = false) EventLoopGroup eventLoopGroup) {
+	public Config redissonConfig(SocketIORedissonProperties properties,
+								 AddressResolverGroupFactory addressResolverGroupFactory,
+								 Codec codec,
+								 @Autowired(required = false) EventLoopGroup eventLoopGroup) {
 
 		RedissonConfig config = new RedissonConfig(properties.getCluster(),
 				properties.getMasterSlave(),

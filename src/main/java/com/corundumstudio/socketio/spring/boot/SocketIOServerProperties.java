@@ -18,10 +18,10 @@ package com.corundumstudio.socketio.spring.boot;
 import com.corundumstudio.socketio.Configuration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(SocketioServerProperties.PREFIX)
-public class SocketioServerProperties extends Configuration {
+@ConfigurationProperties(SocketIOServerProperties.PREFIX)
+public class SocketIOServerProperties extends Configuration {
 
-	public static final String PREFIX = "socketio.server";
+	public static final String PREFIX = "socket-io.server";
 
 	/**
 	 * If set to true, then useLinuxNativeEpoll property is passed to SocketIO server as is.
