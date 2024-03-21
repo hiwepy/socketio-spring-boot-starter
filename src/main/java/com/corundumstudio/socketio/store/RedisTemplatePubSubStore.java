@@ -53,21 +53,15 @@ public class RedisTemplatePubSubStore implements PubSubStore {
     @Override
     public <T extends PubSubMessage> void subscribe(PubSubType type, final PubSubListener<T> listener, Class<T> clazz) {
         String name = type.toString();
-        MessageListener msgListener = new MessageListener() {
 
-			@SuppressWarnings("unchecked")
-			@Override
-			public void onMessage(Message message, byte[] pattern) {
-
-				byte[] body = message.getBody();
-				PubSubMessage msg = (PubSubMessage) redisTemplate.getValueSerializer().deserialize(body);
-				if (!nodeId.equals(msg.getNodeId())) {
-                    listener.onMessage((T) msg);
-                }
-			}
-
+        MessageListener msgListener = (message, pattern) -> {
+            PubSubMessage msg = (PubSubMessage) message;
+            if (!nodeId.equals(msg.getNodeId())) {
+                listener.onMessage((T) msg);
+            }
         };
         listenerContainer.addMessageListener(msgListener, new ChannelTopic(name));
+
         Queue<MessageListener> list = map.get(name);
         if (list == null) {
             list = new ConcurrentLinkedQueue<MessageListener>();
