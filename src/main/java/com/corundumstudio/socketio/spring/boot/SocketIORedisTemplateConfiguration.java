@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -67,6 +68,7 @@ public class SocketIORedisTemplateConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public StoreFactory clientStoreFactory(RedisConnectionFactory connectionFactory) throws IOException {
 		return new RedisTemplateStoreFactory(socketIoRedisTemplate(connectionFactory), socketIoRedisMessageListenerContainer(connectionFactory));
 	}

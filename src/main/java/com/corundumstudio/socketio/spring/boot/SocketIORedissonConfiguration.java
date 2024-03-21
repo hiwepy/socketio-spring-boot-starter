@@ -106,6 +106,7 @@ public class SocketIORedissonConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public StoreFactory clientStoreFactory(Redisson redisClient, Redisson redisPub, Redisson redisSub) {
 		return new RedissonExtStoreFactory(redisClient, redisPub, redisSub);
 	}

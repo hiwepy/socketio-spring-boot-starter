@@ -20,7 +20,6 @@ import com.corundumstudio.socketio.store.pubsub.PubSubMessage;
 import com.corundumstudio.socketio.store.pubsub.PubSubStore;
 import com.corundumstudio.socketio.store.pubsub.PubSubType;
 import io.netty.util.internal.PlatformDependent;
-import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -38,7 +37,9 @@ public class RedisTemplatePubSubStore implements PubSubStore {
 
     private final ConcurrentMap<String, Queue<MessageListener>> map = PlatformDependent.newConcurrentHashMap();
 
-    public RedisTemplatePubSubStore(RedisTemplate<Object, Object> redisTemplate, RedisMessageListenerContainer listenerContainer, Long nodeId) {
+    public RedisTemplatePubSubStore(RedisTemplate<Object, Object> redisTemplate,
+                                    RedisMessageListenerContainer listenerContainer,
+                                    Long nodeId) {
         this.redisTemplate = redisTemplate;
         this.listenerContainer = listenerContainer;
         this.nodeId = nodeId;
@@ -56,9 +57,9 @@ public class RedisTemplatePubSubStore implements PubSubStore {
 
         MessageListener msgListener = (message, pattern) -> {
             PubSubMessage msg = (PubSubMessage) message;
-            if (!nodeId.equals(msg.getNodeId())) {
+            //if (!nodeId.equals(msg.getNodeId())) {
                 listener.onMessage((T) msg);
-            }
+           // }
         };
         listenerContainer.addMessageListener(msgListener, new ChannelTopic(name));
 

@@ -42,6 +42,7 @@ public class SocketIOHazelcastConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public StoreFactory clientStoreFactory(HazelcastInstance hazelcastClient, HazelcastInstance hazelcastPub, HazelcastInstance hazelcastSub) {
 		return new HazelcastExtStoreFactory( hazelcastClient,  hazelcastPub, hazelcastSub);
 	}
