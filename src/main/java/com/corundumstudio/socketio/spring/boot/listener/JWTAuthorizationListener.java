@@ -16,6 +16,7 @@
 package com.corundumstudio.socketio.spring.boot.listener;
 
 import com.corundumstudio.socketio.AuthorizationListener;
+import com.corundumstudio.socketio.AuthorizationResult;
 import com.corundumstudio.socketio.HandshakeData;
 import org.springframework.util.StringUtils;
 
@@ -35,8 +36,7 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 	private String authorizationParamName = AUTHORIZATION_PARAM;
 
 	@Override
-	public boolean isAuthorized(HandshakeData data) {
-
+	public AuthorizationResult getAuthorizationResult(HandshakeData data) {
 		String token = obtainToken(data);
 
 		if (token == null) {
@@ -44,12 +44,11 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 		}
 
 		token = token.trim();
-
 		if(StringUtils.hasText(token)) {
-			return true;
+			data.setAuthToken(token);
+			return AuthorizationResult.SUCCESSFUL_AUTHORIZATION;
 		}
-
-		return false;
+		return AuthorizationResult.FAILED_AUTHORIZATION;
 	}
 
 	protected String obtainToken(HandshakeData data) {

@@ -6,14 +6,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.0.RELEASE</version>
+		<version>2.7.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>com.github.hiwepy</groupId>
 	<artifactId>socketio-spring-boot-starter</artifactId>
 	<description>Spring Boot Starter For Netty-socketio</description>
-	<version>2.3.x.20240823.RELEASE</version>
+	<version>2.7.x.20240823-SNAPSHOT</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/hiwepy/${project.artifactId}</url>
 	<packaging>jar</packaging>
@@ -366,8 +366,9 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
 		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
-		<netty-socketio.version>1.7.25</netty-socketio.version>
-		<redisson.version>3.17.4</redisson.version>
+		<netty-socketio.version>2.0.11</netty-socketio.version>
+		<hazelcast.version>3.12.13</hazelcast.version>
+		<redisson.version>3.35.0</redisson.version>
 	</properties>
 
 	<dependencies>
@@ -424,11 +425,16 @@
 			<artifactId>netty-socketio</artifactId>
 			<version>${netty-socketio.version}</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-transport-native-epoll -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-transport-native-epoll</artifactId>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.hazelcast/hazelcast-client -->
 		<dependency>
 		    <groupId>com.hazelcast</groupId>
 		    <artifactId>hazelcast-client</artifactId>
+			<version>${hazelcast.version}</version>
 		    <scope>provided</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
