@@ -6,14 +6,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.0</version>
+		<version>3.3.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>com.github.hiwepy</groupId>
 	<artifactId>socketio-spring-boot-starter</artifactId>
 	<description>Spring Boot Starter For Netty-socketio</description>
-	<version>2.7.x.20240823.RELEASE</version>
+	<version>3.3.x.20240823.RELEASE</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/hiwepy/${project.artifactId}</url>
 	<packaging>jar</packaging>
@@ -359,16 +359,34 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.version>3.0</maven.version>
-       	<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
-		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
+		<!-- Maven Plugin versions -->
+		<maven.version>3.6.3</maven.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+		<maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+		<maven-dependency-plugin.version>3.8.0</maven-dependency-plugin.version>
+		<maven-deploy-plugin.version>3.1.3</maven-deploy-plugin.version>
+		<maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+		<maven-gpg-plugin.version>3.2.6</maven-gpg-plugin.version>
+		<maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
+		<maven-help-plugin.version>3.5.0</maven-help-plugin.version>
+		<maven-install-plugin.version>3.1.3</maven-install-plugin.version>
+		<maven-invoker-plugin.version>3.8.0</maven-invoker-plugin.version>
+		<maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+		<maven-javadoc-plugin.version>3.8.0</maven-javadoc-plugin.version>
+		<maven-nexus-staging-plugin.version>1.7.0</maven-nexus-staging-plugin.version>
+		<maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+		<maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+		<maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
+		<maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+		<maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+		<maven-war-plugin.version>3.4.0</maven-war-plugin.version>
+		<!-- Dependency versions -->
 		<netty-socketio.version>2.0.11</netty-socketio.version>
 		<hazelcast.version>3.12.13</hazelcast.version>
-		<redisson.version>3.35.0</redisson.version>
+		<redisson.version>3.36.0</redisson.version>
 	</properties>
 
 	<dependencies>
@@ -380,8 +398,8 @@
 
 		<!-- Java Servlet API -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 			<optional>true</optional>
 		</dependency>
 

@@ -1,0 +1,4 @@
+com.corundumstudio.socketio.spring.boot.SocketIOHazelcastConfiguration
+com.corundumstudio.socketio.spring.boot.SocketIORedissonConfiguration
+com.corundumstudio.socketio.spring.boot.SocketIORedisTemplateConfiguration
+com.corundumstudio.socketio.spring.boot.SocketIOServerAutoConfiguration
