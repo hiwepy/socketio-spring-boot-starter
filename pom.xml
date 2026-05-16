@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.github.hiwepy</groupId>
+	<groupId>io.github.hiwepy</groupId>
 	<artifactId>socketio-spring-boot-starter</artifactId>
 	<description>Spring Boot Starter For Netty-socketio</description>
 	<version>1.0.7-SNAPSHOT</version>
