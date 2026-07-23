@@ -11,7 +11,7 @@
 
 ``` xml
 <dependency>
-	<groupId>com.github.hiwepy</groupId>
+	<groupId>io.github.easy4j</groupId>
 	<artifactId>socketio-spring-boot-starter</artifactId>
 	<version>${project.version}</version>
 </dependency>
@@ -214,7 +214,7 @@ uni.onSocketClose(function (res) {
 
 #### 代码示例
 
-[https://github.com/hiwepy/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio](https://github.com/hiwepy/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio "spring-boot-sample-socketio")
+[https://github.com/easy-4-java/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio](https://github.com/easy-4-java/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio "spring-boot-sample-socketio")
 
 ## Jeebiz 技术社区
 
