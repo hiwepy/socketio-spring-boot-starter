@@ -5,16 +5,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.9</version>
+		<version>3.5.16</version>
 		<relativePath /> 
 	</parent>
 
-	<groupId>io.github.hiwepy</groupId>
+	<groupId>io.github.easy4j</groupId>
 	<artifactId>socketio-spring-boot-starter</artifactId>
 	<description>Spring Boot Starter For Netty-socketio</description>
 	<version>3.5.x.20260527-SNAPSHOT</version>
 	<name>${project.groupId}:${project.artifactId}</name>
-	<url>https://github.com/hiwepy/${project.artifactId}</url>
+	<url>https://github.com/easy-4-java/${project.artifactId}</url>
 	<packaging>jar</packaging>
 
 	<licenses>
@@ -25,9 +25,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:https:github.com/hiwepy/${project.artifactId}.git</connection>
-		<developerConnection>scm:git:https:github.com/hiwepy/${project.artifactId}.git</developerConnection>
-		<url>https:github.com/hiwepy/${project.artifactId}</url>
+		<connection>scm:git:https:github.com/easy-4-java/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:https:github.com/easy-4-java/${project.artifactId}.git</developerConnection>
+		<url>https:github.com/easy-4-java/${project.artifactId}</url>
 		<tag>${project.artifactId}</tag>
 	</scm>
 
@@ -343,6 +343,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>17</java.version>
 		
 		<maven.version>3.6.3</maven.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
@@ -369,6 +370,7 @@
 		<maven-war-plugin.version>3.4.0</maven-war-plugin.version>
 		
 		<netty-socketio.version>2.0.11</netty-socketio.version>
+		<socketio-extension.version>2.0.1-SNAPSHOT</socketio-extension.version>
 		<hazelcast.version>3.12.13</hazelcast.version>
 		<redisson.version>3.36.0</redisson.version>
 	</properties>
@@ -426,6 +428,12 @@
 			<groupId>com.corundumstudio.socketio</groupId>
 			<artifactId>netty-socketio</artifactId>
 			<version>${netty-socketio.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.github.easy4j</groupId>
+			<artifactId>socketio-extension</artifactId>
+			<version>${socketio-extension.version}</version>
 		</dependency>
 		
 		<dependency>
