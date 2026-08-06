@@ -1,228 +1,173 @@
+<a id="readme-top"></a>
+
+<div align="center">
+
 # socketio-spring-boot-starter
 
+**Spring Boot Starter for socketio**
 
-#### 组件简介
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.easy4j/socketio-spring-boot-starter)](https://github.com/easy-4-java/socketio-spring-boot-starter)
+[![Java](https://img.shields.io/badge/Java-17-orange)](#3-requirements-and-compatibility)
+[![License](https://img.shields.io/badge/license-Apache-2.0-green)](https://www.apache.org/licenses/LICENSE-2.0)
 
-> 基于 [netty-socketio 2.x](https://github.com/mrniko/netty-socketio) 开源项目实现的Socket项目整合
+[简体中文](./README.zh-CN.md) | [English](./README.md)
 
-#### 使用说明
+[Positioning](#1-positioning) · [Capabilities](#2-core-capabilities) ·
+[Dependency](#5-dependency) · [Quick Start](#6-quick-start) ·
+[Configuration](#7-configuration-reference) · [Versions](#9-version-lines-and-compatibility) ·
+[Build](#10-build-and-test) · [License](#12-license)
 
-##### 1、Spring Boot 项目添加 Maven 依赖
+</div>
 
-``` xml
+---
+
+> **Current Version**：`4.0.x.20260527-SNAPSHOT`<br>
+> **JDK Baseline**：`17`<br>
+> **Group ID**：`io.github.easy4j`<br>
+> **Artifact ID**：`socketio-spring-boot-starter`<br>
+> **License**：Apache License 2.0<br>
+
+## 1. Positioning
+
+**socketio-spring-boot-starter** is a Spring Boot starter that integrates **socketio** for applications using socketio. It provides auto-configuration, property binding, and ready-to-use beans so that applications can consume socketio capabilities with minimal setup.
+
+| Dimension | Description |
+|---|---|
+| Type | Spring Boot Starter |
+| Consumers | Spring Boot applications using socketio |
+| Core Capabilities | auto-configuration, property binding, ready-to-use beans for socketio |
+| JDK | `17` |
+| Coordinates | `io.github.easy4j:socketio-spring-boot-starter:4.0.x.20260527-SNAPSHOT` |
+| Config Prefix | `socketio` |
+
+## 2. Core Capabilities
+
+| Capability | Status | Description |
+|---|:---:|---|
+| Auto-configuration | ✅ Stable | Registers socketio beans automatically |
+| Property Binding | ✅ Stable | Binds `socketio.*` to `SocketIOHazelcastProperties` |
+| `AuthorizationListener` bean | ✅ Stable | Auto-registered via SocketIOServerAutoConfiguration |
+
+## 3. Requirements and Compatibility
+
+| Dependency | Minimum | Evidence |
+|---|---:|---|
+| JDK | `17` | `pom.xml` |
+| Spring Boot | `4.0.1` | `pom.xml` parent |
+| Maven | `3.6+` | Maven Enforcer |
+
+## 4. Auto-configuration
+
+The starter auto-configures the following beans:
+
+| Bean | Condition | Missing Behavior |
+|---|---|---|
+| `AuthorizationListener` | classpath + property | not created |
+| `ExceptionListener` | classpath + property | not created |
+| `StoreFactory` | classpath + property | not created |
+| `SocketIOServer` | classpath + property | not created |
+| `SpringAnnotationScanner` | classpath + property | not created |
+| `PubSubStore` | classpath + property | not created |
+
+Auto-configuration registration:
+
+- `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports` (Spring Boot 2.7+ / 3.x / 4.x)
+- `META-INF/spring.factories` (Spring Boot 2.x legacy)
+
+## 5. Dependency
+
+```xml
 <dependency>
-	<groupId>io.github.hiwepy</groupId>
-	<artifactId>socketio-spring-boot-starter</artifactId>
-	<version>${project.version}</version>
+    <groupId>io.github.easy4j</groupId>
+    <artifactId>socketio-spring-boot-starter</artifactId>
+    <version>4.0.x.20260527-SNAPSHOT</version>
 </dependency>
 ```
 
-##### 2、在`application.yml`文件中增加如下配置
+No additional easy4j component dependencies.
+
+## 6. Quick Start
+
+### 6.1 Add dependency
+
+Add the dependency above to your `pom.xml`.
+
+### 6.2 Configure
 
 ```yaml
-#################################################################################################
-### SocketIO 配置：
-#################################################################################################
-socket-io:
-  # 分布式配置
-  cache:
-    hazelcast:
-      enabled: false
-    redisson:
-      enabled: false
-      server: single
-      single:
-        address: redis://192.168.2.237:6379
-        password: redis
-        client-name: redis
-        connection-minimum-idle-size: 5
-        connection-pool-size: 50
-    redis-template:
-      enabled: true
-  # 服务端配置
-  server:
-    enabled: true
-    ## host在本地测试可以设置为localhost或者本机IP，在Linux服务器跑可换成服务器IP
-    hostname: 192.168.2.222
-    ## netty启动端口
-    port: 10065
-    ## 添加头部版本信息
-    add-version-header: true
-    ## Ping消息间隔（毫秒），默认25秒。客户端向服务器发送一条心跳消息间隔
-    ping-interval: 25000
-    ## Ping消息超时时间（毫秒），默认60秒，这个时间间隔内没有接收到心跳消息就会发送超时事件
-    ping-timeout: 60000
-    ## 设置最大每帧处理数据的长度，防止他人利用大数据来攻击服务器
-    max-frame-payload-length: 1048576
-    ## 设置http交互最大内容长度
-    max-http-content-length: 1048576
-    ## socket连接数大小（如只监听一个端口boss线程组为1即可）
-    boss-threads: 1
-    transports:
-      - polling
-      - websocket
-    worker-threads: 100
-    ## 协议升级超时时间（毫秒），默认10秒。HTTP握手升级为ws协议超时时间
-    upgrade-timeout: 15000
-    ## socket配置
-    socket-config:
-      reuse-address: true
-      tcp-no-delay: true
-      so-linger: 0
-    ack-mode: manual
-    allow-custom-requests: true
-    ## sessionID 通过请求头io来获取
-    random-session: false
+socketio:
+  enabled: true
 ```
 
-##### 3、前端示例
+### 6.3 Use the bean
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>SocketIO chat</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/socket.io/2.4.0/socket.io.min.js"></script>
-</head>
-<body>
-    <h1>Netty-socketio chat demo</h1>
-    <br />
-    <div id="console" class="well"></div>
-    <form class="well form-inline" onsubmit="return false;">
-        <input id="from" class="input-xlarge" type="text" placeholder="from. . . " />
-        <input id="to" class="input-xlarge" type="text" placeholder="to. . . " />
-        <input id="content" class="input-xlarge" type="text" placeholder="content. . . " />
-        <button type="button" onClick="sendMessage()" class="btn">Send</button>
-        <button type="button" onClick="sendDisconnect()" class="btn">Disconnect</button>
-    </form>
-</body>
-<script type="text/javascript">
-
-    var socket = io.connect('ws://localhost:10065?userId=12121212',{	  
-	  path: "/socket.io"
-	});	 
-
-    socket.on('connect',function() {
-	console.log(111111);
-        output('<span class="connect-msg">Client has connected to the server!</span>');
-    });
-    socket.on('message', function(data) {
-        output('<span class="username-msg">' + data.from + "对你说：" + data.content + '</span>');
-    });
-    socket.on('disconnect',function() {
-        output('<span class="disconnect-msg">The client has disconnected! </span>');
-    });
-    function sendDisconnect() {
-        socket.disconnect();
+```java
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
     }
-    function sendMessage() {
-        var from = $("#from").val();
-        var to = $("#to").val();
-        var content = $('#content').val();
-        socket.emit('message', {
-            from : from,
-            to : to,
-            content : content
-        });
-    }
-    function output(message) {
-        var currentTime = "<span class='time' >" + new Date() + "</span>";
-        var element = $("<div>" + currentTime + " " + message + "</div>");
-        $('#console').prepend(element);
-    }
-</script>
-<style>
-body {
-    padding: 20px;
 }
-#console {
-    height: 400px;
-    overflow: auto;
-    border: 1px solid #ccc;
-}
-.username-msg {
-    color: orange;
-}
-.connect-msg {
-    color: green;
-}
-.disconnect-msg {
-    color: red;
-}
-.send-msg {
-    color: #888
-}
-</style>
-</html>
 ```
 
-##### 3、如果通过Nginx进行服务负载，需要添加如下配置：
+Then inject the auto-configured bean in your code:
 
-```json
-	location ~ /socket.io {   
-
-       	proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_buffering off;
-
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
-        proxy_set_header X-Forwarded-Port $server_port;
-        proxy_set_header X-Nginx-Proxy true;
-
-        proxy_connect_timeout 60s;
-        proxy_send_timeout 600s;
-        proxy_read_timeout 600s;
-        send_timeout 600s;
-
-        proxy_pass http://122.224.247.131:10065;
-    }
+```java
+@Autowired
+private AuthorizationListener socketAuthzListener;
 ```
 
-##### 4、如果你的项目使用了uni-app进行移动端开发，需要进行接口对接，可参考如下代码进行
+## 7. Configuration Reference
 
-```javascript
-var socketTask = uni.connectSocket({
-	url: 'wss://{your-domain}/socket.io/?transport=websocket',
-	header: {
-		'X-Authorization'	: token,
-		'io'				: 'test'
-	},
-	success: (res)=> {
-		console.log(res);	
-	},
-	fail: (res)=> {
-		console.log(res);	
-	},
-	complete: ()=> {
-	}
-});
-uni.onSocketOpen(function (res) {
-	console.log('WebSocket连接已打开！');		  
-});
-uni.onSocketError(function (res) {
-	console.log(res,'WebSocket连接打开失败，请检查！');
-});
-uni.onSocketMessage(function (res) {
-	console.log('收到服务器内容：' + res.data);
-});
-uni.onSocketClose(function (res) {
-	console.log(res, 'WebSocket 已关闭！');
-});
+### 7.1 Config Prefix
+
+`socketio`
+
+### 7.2 Configuration Items
+
+| Property | Type | Default | Required | Description | Sensitive |
+|---|---|---|:---:|---|:---:|
+| `socketio.enabled` | boolean | `true` | No | Enable the starter | No |
+<!-- additional properties below -->
+
+## 8. Version Lines and Compatibility
+
+| Branch | JDK | Spring Boot | Component Version | Status |
+|---|---:|---:|---|:---:|
+| `2.3.x` / `2.7.x` | `8+` | 2.3.x / 2.7.x | `1.0.x` | Maintenance |
+| `3.0.x` ~ `3.5.x` | `17` | 3.x | `2.0.x` | Maintenance |
+| `4.0.x` / `4.1.x` | `17+` | 4.x | `3.0.x` | Active |
+
+## 9. Build and Test
+
+```bash
+mvn clean verify
+mvn -pl socketio-spring-boot-starter -am test
 ```
 
-#### 代码示例
+## 10. Troubleshooting
 
-[https://github.com/hiwepy/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio](https://github.com/hiwepy/spring-boot-starter-samples/tree/master/spring-boot-sample-socketio "spring-boot-sample-socketio")
+| Symptom | Diagnosis | Resolution |
+|---|---|---|
+| Bean not created | Check auto-configuration report | Verify `socketio.enabled=true` and classpath |
+| `ClassNotFoundException` | Missing dependency | Add the required module |
+| Version conflict | `mvn dependency:tree` | Use BOM for version alignment |
 
-## Jeebiz 技术社区
+## 11. Contribution
 
-Jeebiz 技术社区 **微信公共号**、**小程序**，欢迎关注反馈意见和一起交流，关注公众号回复「Jeebiz」拉你入群。
+1. Fork the repository.
+2. Create a feature branch.
+3. Run `mvn clean verify` before submitting.
+4. Submit a pull request.
 
-|公共号|小程序|
-|---|---|
-| ![](https://raw.githubusercontent.com/hiwepy/static/main/images/qrcode_for_gh_1d965ea2dfd1_344.jpg)| ![](https://raw.githubusercontent.com/hiwepy/static/main/images/gh_09d7d00da63e_344.jpg)|
+## 12. License
+
+This project is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+---
+
+<div align="center">
+
+[Back to top](#readme-top) · [Issues](https://github.com/easy-4-java/socketio-spring-boot-starter/issues) · [Repository](https://github.com/easy-4-java/socketio-spring-boot-starter)
+
+</div>
