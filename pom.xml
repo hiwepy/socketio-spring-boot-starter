@@ -417,6 +417,9 @@
         <maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
         <netty-socketio.version>1.7.25</netty-socketio.version>
         <redisson.version>3.17.4</redisson.version>
+                <commons-io.version>2.22.0</commons-io.version>
+                <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+                <slf4j.version>2.0.18</slf4j.version>
     </properties>
 
     <dependencies>
@@ -432,7 +435,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <version>${javax.servlet-api.version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -440,7 +443,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.13</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- Core starter, including auto-configuration support, logging and YAML -->
@@ -526,7 +529,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
+            <version>${commons-io.version}</version>
             <scope>test</scope>
         </dependency>
             <!-- For JUnit Jupiter -->
@@ -536,5 +539,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 
 </project>
