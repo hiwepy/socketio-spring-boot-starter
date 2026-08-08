@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @author ： <a href="https://github.com/easy-4-java">wandl</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 @SuppressWarnings("unchecked")
 public class RedisTemplateMap<K, V> implements Map<K, V> {
