@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
+ * Copyright (c) 2018, hiwepy (https://github.com/easy-4-java).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -16,12 +16,13 @@
 package com.corundumstudio.socketio.spring.boot.listener;
 
 import com.corundumstudio.socketio.AuthorizationListener;
+import com.corundumstudio.socketio.AuthorizationResult;
 import com.corundumstudio.socketio.HandshakeData;
 import org.springframework.util.StringUtils;
 
 /**
  * TODO
- * @author 		： <a href="https://github.com/hiwepy">wandl</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public class JWTAuthorizationListener implements AuthorizationListener {
 
@@ -35,8 +36,7 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 	private String authorizationParamName = AUTHORIZATION_PARAM;
 
 	@Override
-	public boolean isAuthorized(HandshakeData data) {
-
+	public AuthorizationResult getAuthorizationResult(HandshakeData data) {
 		String token = obtainToken(data);
 
 		if (token == null) {
@@ -44,12 +44,11 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 		}
 
 		token = token.trim();
-
 		if(StringUtils.hasText(token)) {
-			return true;
+			data.setAuthToken(token);
+			return AuthorizationResult.SUCCESSFUL_AUTHORIZATION;
 		}
-
-		return false;
+		return AuthorizationResult.FAILED_AUTHORIZATION;
 	}
 
 	protected String obtainToken(HandshakeData data) {
