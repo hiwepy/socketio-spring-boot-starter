@@ -146,138 +146,240 @@ public class SocketIORedissonProperties {
 	 */
 	private ReplicatedServersConfig replicated;
 
+	/** Returns whether the enabled is enabled.
+	 * @return the result
+	 */
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	/** Sets the enabled.
+	 * @param enabled the enabled
+	 */
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
+	/** Returns the threads.
+	 * @return the result
+	 */
 	public int getThreads() {
 		return threads;
 	}
 
+	/** Sets the threads.
+	 * @param threads the threads
+	 */
 	public void setThreads(int threads) {
 		this.threads = threads;
 	}
 
+	/** Returns the netty threads.
+	 * @return the result
+	 */
 	public int getNettyThreads() {
 		return nettyThreads;
 	}
 
+	/** Sets the netty threads.
+	 * @param nettyThreads the nettyThreads
+	 */
 	public void setNettyThreads(int nettyThreads) {
 		this.nettyThreads = nettyThreads;
 	}
 
+	/** Returns whether the reference enabled is enabled.
+	 * @return the result
+	 */
 	public boolean isReferenceEnabled() {
 		return referenceEnabled;
 	}
 
+	/** Sets the reference enabled.
+	 * @param referenceEnabled the referenceEnabled
+	 */
 	public void setReferenceEnabled(boolean referenceEnabled) {
 		this.referenceEnabled = referenceEnabled;
 	}
 
+	/** Returns the transport mode.
+	 * @return the result
+	 */
 	public TransportMode getTransportMode() {
 		return transportMode;
 	}
 
+	/** Sets the transport mode.
+	 * @param transportMode the transportMode
+	 */
 	public void setTransportMode(TransportMode transportMode) {
 		this.transportMode = transportMode;
 	}
 
+	/** Returns the server.
+	 * @return the result
+	 */
 	public RedisServerMode getServer() {
 		return server;
 	}
 
+	/** Sets the server.
+	 * @param server the server
+	 */
 	public void setServer(RedisServerMode server) {
 		this.server = server;
 	}
 
+	/** Returns the lock watchdog timeout.
+	 * @return the result
+	 */
 	public long getLockWatchdogTimeout() {
 		return lockWatchdogTimeout;
 	}
 
+	/** Sets the lock watchdog timeout.
+	 * @param lockWatchdogTimeout the lockWatchdogTimeout
+	 */
 	public void setLockWatchdogTimeout(long lockWatchdogTimeout) {
 		this.lockWatchdogTimeout = lockWatchdogTimeout;
 	}
 
+	/** Returns whether the keep pub sub order is enabled.
+	 * @return the result
+	 */
 	public boolean isKeepPubSubOrder() {
 		return keepPubSubOrder;
 	}
 
+	/** Sets the keep pub sub order.
+	 * @param keepPubSubOrder the keepPubSubOrder
+	 */
 	public void setKeepPubSubOrder(boolean keepPubSubOrder) {
 		this.keepPubSubOrder = keepPubSubOrder;
 	}
 
+	/** Returns whether the decode in executor is enabled.
+	 * @return the result
+	 */
 	public boolean isDecodeInExecutor() {
 		return decodeInExecutor;
 	}
 
+	/** Sets the decode in executor.
+	 * @param decodeInExecutor the decodeInExecutor
+	 */
 	public void setDecodeInExecutor(boolean decodeInExecutor) {
 		this.decodeInExecutor = decodeInExecutor;
 	}
 
+	/** Returns whether the use script cache is enabled.
+	 * @return the result
+	 */
 	public boolean isUseScriptCache() {
 		return useScriptCache;
 	}
 
+	/** Sets the use script cache.
+	 * @param useScriptCache the useScriptCache
+	 */
 	public void setUseScriptCache(boolean useScriptCache) {
 		this.useScriptCache = useScriptCache;
 	}
 
+	/** Returns the min clean up delay.
+	 * @return the result
+	 */
 	public int getMinCleanUpDelay() {
 		return minCleanUpDelay;
 	}
 
+	/** Sets the min clean up delay.
+	 * @param minCleanUpDelay the minCleanUpDelay
+	 */
 	public void setMinCleanUpDelay(int minCleanUpDelay) {
 		this.minCleanUpDelay = minCleanUpDelay;
 	}
 
+	/** Returns the max clean up delay.
+	 * @return the result
+	 */
 	public int getMaxCleanUpDelay() {
 		return maxCleanUpDelay;
 	}
 
+	/** Sets the max clean up delay.
+	 * @param maxCleanUpDelay the maxCleanUpDelay
+	 */
 	public void setMaxCleanUpDelay(int maxCleanUpDelay) {
 		this.maxCleanUpDelay = maxCleanUpDelay;
 	}
 
+	/** Returns the sentinel.
+	 * @return the result
+	 */
 	public SentinelServersConfig getSentinel() {
 		return sentinel;
 	}
 
+	/** Sets the sentinel.
+	 * @param sentinel the sentinel
+	 */
 	public void setSentinel(SentinelServersConfig sentinel) {
 		this.sentinel = sentinel;
 	}
 
+	/** Returns the master slave.
+	 * @return the result
+	 */
 	public MasterSlaveServersConfig getMasterSlave() {
 		return masterSlave;
 	}
 
+	/** Sets the master slave.
+	 * @param masterSlave the masterSlave
+	 */
 	public void setMasterSlave(MasterSlaveServersConfig masterSlave) {
 		this.masterSlave = masterSlave;
 	}
 
+	/** Returns the single.
+	 * @return the result
+	 */
 	public SingleServerConfig getSingle() {
 		return single;
 	}
 
+	/** Sets the single.
+	 * @param single the single
+	 */
 	public void setSingle(SingleServerConfig single) {
 		this.single = single;
 	}
 
+	/** Returns the cluster.
+	 * @return the result
+	 */
 	public ClusterServersConfig getCluster() {
 		return cluster;
 	}
 
+	/** Sets the cluster.
+	 * @param cluster the cluster
+	 */
 	public void setCluster(ClusterServersConfig cluster) {
 		this.cluster = cluster;
 	}
 
+	/** Returns the replicated.
+	 * @return the result
+	 */
 	public ReplicatedServersConfig getReplicated() {
 		return replicated;
 	}
 
+	/** Sets the replicated.
+	 * @param replicated the replicated
+	 */
 	public void setReplicated(ReplicatedServersConfig replicated) {
 		this.replicated = replicated;
 	}

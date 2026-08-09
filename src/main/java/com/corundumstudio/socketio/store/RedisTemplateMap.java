@@ -56,6 +56,9 @@ public class RedisTemplateMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
+	/** Returns whether the empty is enabled.
+	 * @return the result
+	 */
 	public boolean isEmpty() {
 		return size() > 0;
 	}

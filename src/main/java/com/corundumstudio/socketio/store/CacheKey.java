@@ -19,26 +19,26 @@ import java.util.function.Function;
 public enum CacheKey {
 
     /**
-     * Socket会话列表
+     * Socket
      */
     SOCKET_IO_SESSIONS("Socket会话列表", (p1) -> {
         return CacheKey.getKeyStr(CacheKeyConstant.SOCKET_IO_SESSIONS_KEY);
     }),
     /**
-     * Socket会话信息
+     * Socketinformation
      */
     SOCKET_IO_SESSION("Socket会话信息", (sessionId) -> {
         return CacheKey.getKeyStr(CacheKeyConstant.SOCKET_IO_SESSION_KEY, sessionId);
     }),
 
     /**
-     * IP地区编码缓存
+     * IP
      */
     SOCKET_IO_IP_REGION("用户坐标对应的地区编码缓存", (ip)->{
         return getKeyStr(CacheKeyConstant.SOCKET_IO_IP_REGION_KEY, ip);
     }),
     /**
-     * IP坐标缓存
+     * IP
      */
     SOCKET_IO_IP_LOCATION("用户坐标对应的地理位置缓存", (ip)->{
         return getKeyStr(CacheKeyConstant.SOCKET_IO_IP_LOCATION_KEY, ip);
@@ -62,17 +62,17 @@ public enum CacheKey {
 	}
 
     /**
-     * 1、获取全名称key
-     * @return 无参数组合后的redis缓存key
+     * 1、retrievekey
+     * @return rediskey
      */
     public String getKey() {
         return this.function.apply(null);
     }
 
     /**
-     * 1、获取全名称key
-     * @param key 缓存key的部分值
-     * @return key参数组合后的redis缓存key
+     * 1、retrievekey
+     * @param key key
+     * @return key rediskey
      */
     public String getKey(Object key) {
         return this.function.apply(key);
@@ -122,6 +122,9 @@ public enum CacheKey {
         return tempKey.toString();
     }
 
+    /** Application entry point.
+     * @param args the args
+     */
     public static void main(String[] args) {
         System.out.println(getKeyStr(233,""));
     }
