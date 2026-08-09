@@ -62,9 +62,9 @@ public abstract class AbstractSocketEventHandler {
 	@OnConnect
 	public void onConnect(SocketIOClient client) {
 		log.debug("Connect OK.");
-		log.debug("Session ID  : %s", client.getSessionId());
-		log.debug("HttpHeaders : %s", client.getHandshakeData().getHttpHeaders());
-		log.debug("UrlParams   : %s", client.getHandshakeData().getUrlParams());
+		log.debug("Session ID  : {}", client.getSessionId());
+		log.debug("HttpHeaders : {}", client.getHandshakeData().getHttpHeaders());
+		log.debug("UrlParams   : {}", client.getHandshakeData().getUrlParams());
 
 		client.sendEvent("welcome", "ok");
 	}
@@ -79,7 +79,7 @@ public abstract class AbstractSocketEventHandler {
 	@OnDisconnect
 	public void onDisconnect(SocketIOClient client) {
 		log.debug("Disconnect OK.");
-		log.debug("Session ID  : %s", client.getSessionId());
+		log.debug("Session ID  : {}", client.getSessionId());
 	}
 
 	/**
