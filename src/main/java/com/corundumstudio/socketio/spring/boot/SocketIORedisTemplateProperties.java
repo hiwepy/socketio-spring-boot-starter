@@ -17,9 +17,20 @@ package com.corundumstudio.socketio.spring.boot;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Configuration properties for the {@code RedisTemplate}-backed Socket.IO session store.
+ *
+ * <p>Binds properties under the {@code socket-io.cache.redis-template} prefix and
+ * exposes the {@code enabled} flag used to activate the
+ * {@link SocketIORedisTemplateConfiguration RedisTemplate} store.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @ConfigurationProperties(SocketIORedisTemplateProperties.PREFIX)
 public class SocketIORedisTemplateProperties {
 
+	/** Configuration property prefix shared by all RedisTemplate store properties. */
 	public static final String PREFIX = "socket-io.cache.redis-template";
 
 	/**
@@ -27,10 +38,18 @@ public class SocketIORedisTemplateProperties {
 	 */
 	private boolean enabled = false;
 
+	/**
+	 * Get whether the RedisTemplate-backed Socket.IO session store is enabled.
+	 * @return {@code true} if the RedisTemplate store is enabled, otherwise {@code false}
+	 */
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	/**
+	 * Set whether the RedisTemplate-backed Socket.IO session store is enabled.
+	 * @param enabled whether to enable the RedisTemplate store
+	 */
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}

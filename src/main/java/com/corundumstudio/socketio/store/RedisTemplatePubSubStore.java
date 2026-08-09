@@ -29,6 +29,18 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * Redis-backed {@link PubSubStore} implemented on top of Spring's
+ * {@link RedisTemplate} and {@link RedisMessageListenerContainer}.
+ *
+ * <p>Publishes Socket.IO pub/sub messages to channels keyed by their
+ * {@link PubSubType} and registers listeners that are invoked when matching messages
+ * arrive. The originating node id is attached to every published message so that
+ * subscribers can filter messages emitted by themselves if needed.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 public class RedisTemplatePubSubStore implements PubSubStore {
 
     private final RedisTemplate<Object, Object> redisTemplate;
@@ -37,6 +49,13 @@ public class RedisTemplatePubSubStore implements PubSubStore {
 
     private final ConcurrentMap<String, Queue<MessageListener>> map = PlatformDependent.newConcurrentHashMap();
 
+    /**
+     * Construct a pub/sub store backed by the given Redis template and listener
+     * container.
+     * @param redisTemplate the Redis template used to publish messages
+     * @param listenerContainer the listener container used to subscribe to channels
+     * @param nodeId the unique id of the publishing node
+     */
     public RedisTemplatePubSubStore(RedisTemplate<Object, Object> redisTemplate,
                                     RedisMessageListenerContainer listenerContainer,
                                     Long nodeId) {
@@ -45,12 +64,26 @@ public class RedisTemplatePubSubStore implements PubSubStore {
         this.nodeId = nodeId;
     }
 
+    /**
+     * Publish a pub/sub message to the channel identified by its type, tagging the
+     * message with the current node id.
+     * @param type the pub/sub message type (channel name)
+     * @param msg the message to publish
+     */
     @Override
     public void publish(PubSubType type, PubSubMessage msg) {
         msg.setNodeId(nodeId);
         redisTemplate.convertAndSend(type.toString(), msg);
     }
 
+    /**
+     * Subscribe to messages of the given type, forwarding them to the supplied
+     * listener.
+     * @param type the pub/sub message type (channel name)
+     * @param listener the listener notified on each incoming message
+     * @param clazz the expected message payload type
+     * @param <T> the pub/sub message type
+     */
     @Override
     public <T extends PubSubMessage> void subscribe(PubSubType type, final PubSubListener<T> listener, Class<T> clazz) {
         String name = type.toString();
@@ -74,6 +107,10 @@ public class RedisTemplatePubSubStore implements PubSubStore {
         list.add(msgListener);
     }
 
+    /**
+     * Unsubscribe all listeners registered for the given pub/sub type.
+     * @param type the pub/sub message type (channel name) to unsubscribe from
+     */
     @Override
     public void unsubscribe(PubSubType type) {
         String name = type.toString();
@@ -83,6 +120,10 @@ public class RedisTemplatePubSubStore implements PubSubStore {
         }
     }
 
+    /**
+     * Release any resources held by this store; the RedisTemplate-based implementation
+     * has nothing to release so this is a no-op.
+     */
     @Override
     public void shutdown() {
     }

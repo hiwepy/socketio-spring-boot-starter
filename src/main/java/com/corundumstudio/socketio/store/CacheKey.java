@@ -6,6 +6,16 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.function.Function;
 
+/**
+ * Enumeration of canonical cache keys used by the Socket.IO session store.
+ *
+ * <p>Each entry pairs a human-readable description with a function that builds the
+ * final Redis key for a given argument, so that session, region and location keys
+ * can be constructed in a consistent way.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 public enum CacheKey {
 
     /**
@@ -43,6 +53,10 @@ public enum CacheKey {
         this.function = function;
     }
 
+    /**
+     * Get the human-readable description of this cache key.
+     * @return the description of the key
+     */
     public String getDesc() {
 		return desc;
 	}
@@ -64,9 +78,17 @@ public enum CacheKey {
         return this.function.apply(key);
     }
 
+    /** Prefix prepended to every Socket.IO Redis key. */
     public static String REDIS_PREFIX = "rds";
+    /** Delimiter used to join the parts of a cache key. */
     public final static String DELIMITER = ":";
 
+    /**
+     * Build a cache key by joining the Redis prefix and the supplied parts, skipping
+     * any {@code null} or blank parts.
+     * @param args the parts of the key
+     * @return the fully qualified cache key
+     */
     public static String getKeyStr(Object... args) {
         StringJoiner tempKey = new StringJoiner(DELIMITER);
         tempKey.add(REDIS_PREFIX);
@@ -79,6 +101,13 @@ public enum CacheKey {
         return tempKey.toString();
     }
 
+    /**
+     * Build a thread-scoped cache key by prefixing the result with the current thread
+     * id, useful for per-thread scratch storage.
+     * @param prefix the prefix to use (instead of the default Redis prefix)
+     * @param args the parts of the key
+     * @return the thread-scoped cache key
+     */
     public static String getThreadKeyStr(String prefix, Object... args) {
 
         StringJoiner tempKey = new StringJoiner(DELIMITER);

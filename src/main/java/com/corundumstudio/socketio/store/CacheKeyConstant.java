@@ -1,5 +1,14 @@
 package com.corundumstudio.socketio.store;
 
+/**
+ * String constants for the canonical Socket.IO cache keys.
+ *
+ * <p>Held separately from {@link CacheKey} so that they can be referenced directly
+ * when building keys without going through the enum.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 public abstract class CacheKeyConstant {
 
 	/**

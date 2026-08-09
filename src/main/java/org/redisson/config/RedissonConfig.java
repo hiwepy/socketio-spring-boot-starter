@@ -16,46 +16,88 @@
 package org.redisson.config;
 
 /**
- * TODO
- * 
+ * Extended Redisson {@link Config} that exposes convenient constructors for the
+ * supported Redis deployment topologies.
+ *
+ * <p>Provides convenience constructors for cluster, master/slave, replicated,
+ * sentinel and single-server modes, so that the active topology can be selected at
+ * construction time from the bound Socket.IO properties.</p>
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
 
 public class RedissonConfig extends Config {
 
+	/**
+	 * Construct an empty Redisson configuration.
+	 */
 	public RedissonConfig() {
 		super();
 	}
 
+	/**
+	 * Construct a Redisson configuration by copying the settings of an existing one.
+	 * @param oldConf the configuration to copy
+	 */
 	public RedissonConfig(Config oldConf) {
 		super(oldConf);
 	}
 
+	/**
+	 * Construct a Redisson configuration pre-configured for cluster mode.
+	 * @param clusterServersConfig the cluster server configuration
+	 */
 	public RedissonConfig(ClusterServersConfig clusterServersConfig) {
 		super();
 		useClusterServers(clusterServersConfig);
 	}
 
+	/**
+	 * Construct a Redisson configuration pre-configured for master/slave mode.
+	 * @param masterSlaveServersConfig the master/slave server configuration
+	 */
 	public RedissonConfig(MasterSlaveServersConfig masterSlaveServersConfig) {
 		super();
 		useMasterSlaveServers(masterSlaveServersConfig);
 	}
 
+	/**
+	 * Construct a Redisson configuration pre-configured for replicated mode.
+	 * @param replicatedServersConfig the replicated server configuration
+	 */
 	public RedissonConfig(ReplicatedServersConfig replicatedServersConfig) {
 		super();
 		useReplicatedServers(replicatedServersConfig);
 	}
 
+	/**
+	 * Construct a Redisson configuration pre-configured for sentinel mode.
+	 * @param sentinelServersConfig the sentinel server configuration
+	 */
 	public RedissonConfig(SentinelServersConfig sentinelServersConfig) {
 		super();
 		useSentinelServers(sentinelServersConfig);
 	}
 
+	/**
+	 * Construct a Redisson configuration pre-configured for single-server mode.
+	 * @param singleServerConfig the single server configuration
+	 */
 	public RedissonConfig(SingleServerConfig singleServerConfig) {
 		super();
 		useSingleServer(singleServerConfig);
 	}
-	
+
+	/**
+	 * Construct a Redisson configuration carrying all supported topology
+	 * configurations at once, so the active one can be selected later.
+	 * @param clusterServersConfig the cluster server configuration
+	 * @param masterSlaveServersConfig the master/slave server configuration
+	 * @param replicatedServersConfig the replicated server configuration
+	 * @param sentinelServersConfig the sentinel server configuration
+	 * @param singleServerConfig the single server configuration
+	 */
 	public RedissonConfig(ClusterServersConfig clusterServersConfig,
 			MasterSlaveServersConfig masterSlaveServersConfig,
 			ReplicatedServersConfig replicatedServersConfig,

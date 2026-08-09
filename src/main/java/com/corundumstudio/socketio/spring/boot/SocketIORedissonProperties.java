@@ -18,11 +18,25 @@ package com.corundumstudio.socketio.spring.boot;
 import org.redisson.config.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Configuration properties for the Redisson-backed Socket.IO session store.
+ *
+ * <p>Binds properties under the {@code socket-io.cache.redisson} prefix and exposes
+ * the Redisson server configuration (single, sentinel, master/slave, replicated or
+ * cluster) along with thread pool, transport and cleanup tuning options.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @ConfigurationProperties(SocketIORedissonProperties.PREFIX)
 public class SocketIORedissonProperties {
 
+	/** Configuration property prefix shared by all Redisson store properties. */
 	public static final String PREFIX = "socket-io.cache.redisson";
 
+	/**
+	 * Supported Redis deployment topologies for the Redisson client.
+	 */
 	public enum RedisServerMode {
 
 		/**
@@ -58,6 +72,9 @@ public class SocketIORedissonProperties {
 	 */
 	private int threads = 16;
 
+	/**
+	 * Number of Netty threads shared between all Redis node clients. Defaults to {@code 32}.
+	 */
 	private int nettyThreads = 32;
 
 	/**
@@ -65,29 +82,68 @@ public class SocketIORedissonProperties {
 	 */
 	private boolean referenceEnabled = true;
 
+	/**
+	 * Transport mode used by the Redisson client. Defaults to {@link TransportMode#NIO}.
+	 */
 	private TransportMode transportMode = TransportMode.NIO;
 
+	/**
+	 * Active Redis deployment topology. Defaults to {@link RedisServerMode#SINGLE}.
+	 */
 	private RedisServerMode server = RedisServerMode.SINGLE;
 
+	/**
+	 * Lock watchdog timeout in milliseconds used for distributed lock expiration. Defaults to {@code 30000}.
+	 */
 	private long lockWatchdogTimeout = 30 * 1000;
 
+	/**
+	 * Whether to preserve pub/sub message order across subscriptions. Defaults to {@code true}.
+	 */
 	private boolean keepPubSubOrder = true;
 
+	/**
+	 * Whether messages should be decoded in a separate executor. Defaults to {@code false}.
+	 */
 	private boolean decodeInExecutor = false;
 
+	/**
+	 * Whether to cache Lua scripts on the Redis side. Defaults to {@code false}.
+	 */
 	private boolean useScriptCache = false;
 
+	/**
+	 * Minimum delay (in seconds) between cleanup runs. Defaults to {@code 5}.
+	 */
 	private int minCleanUpDelay = 5;
+	/**
+	 * Maximum delay (in seconds) between cleanup runs. Defaults to {@code 1800}.
+	 */
 	private int maxCleanUpDelay = 30 * 60;
 
+	/**
+	 * Sentinel-mode Redisson server configuration.
+	 */
 	private SentinelServersConfig sentinel;
 
+	/**
+	 * Master/slave-mode Redisson server configuration.
+	 */
 	private MasterSlaveServersConfig masterSlave;
 
+	/**
+	 * Single-node Redisson server configuration.
+	 */
 	private SingleServerConfig single;
 
+	/**
+	 * Cluster-mode Redisson server configuration.
+	 */
 	private ClusterServersConfig cluster;
 
+	/**
+	 * Replicated-mode Redisson server configuration.
+	 */
 	private ReplicatedServersConfig replicated;
 
 	public boolean isEnabled() {

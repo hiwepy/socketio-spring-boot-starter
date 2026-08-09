@@ -21,11 +21,20 @@ import com.corundumstudio.socketio.HandshakeData;
 import org.springframework.util.StringUtils;
 
 /**
- * TODO
+ * Socket.IO {@link AuthorizationListener} that extracts a JWT (or any opaque token)
+ * from the handshake data.
+ *
+ * <p>The token is read from the {@code X-Authorization} HTTP header by default,
+ * falling back to the {@code token} query parameter. When a non-empty token is
+ * present it is attached to the handshake as the auth token and authorization
+ * succeeds; otherwise authorization fails.</p>
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
 public class JWTAuthorizationListener implements AuthorizationListener {
 
+	/** Default name of the query parameter carrying the authorization token. */
 	public static final String AUTHORIZATION_PARAM = "token";
 	/**
 	 * HTTP Authorization header, equal to <code>Authorization</code>
@@ -35,6 +44,11 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 	private String authorizationHeaderName = AUTHORIZATION_HEADER;
 	private String authorizationParamName = AUTHORIZATION_PARAM;
 
+	/**
+	 * Decide whether the handshake is authorized by looking for a non-empty token.
+	 * @param data the handshake data
+	 * @return {@link AuthorizationResult#SUCCESSFUL_AUTHORIZATION} if a token is present, otherwise {@link AuthorizationResult#FAILED_AUTHORIZATION}
+	 */
 	@Override
 	public AuthorizationResult getAuthorizationResult(HandshakeData data) {
 		String token = obtainToken(data);
@@ -51,6 +65,12 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 		return AuthorizationResult.FAILED_AUTHORIZATION;
 	}
 
+	/**
+	 * Obtain the authorization token from the request, preferring the configured
+	 * HTTP header and falling back to the configured query parameter.
+	 * @param data the handshake data
+	 * @return the authorization token, or {@code null} if absent
+	 */
 	protected String obtainToken(HandshakeData data) {
 		// 从header中获取token
 		String token = data.getHttpHeaders().get(getAuthorizationHeaderName());
@@ -61,18 +81,34 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 		return token;
 	}
 
+	/**
+	 * Get the HTTP header name used to read the authorization token.
+	 * @return the authorization header name
+	 */
 	public String getAuthorizationHeaderName() {
 		return authorizationHeaderName;
 	}
 
+	/**
+	 * Set the HTTP header name used to read the authorization token.
+	 * @param authorizationHeaderName the authorization header name
+	 */
 	public void setAuthorizationHeaderName(String authorizationHeaderName) {
 		this.authorizationHeaderName = authorizationHeaderName;
 	}
 
+	/**
+	 * Get the query parameter name used to read the authorization token.
+	 * @return the authorization parameter name
+	 */
 	public String getAuthorizationParamName() {
 		return authorizationParamName;
 	}
 
+	/**
+	 * Set the query parameter name used to read the authorization token.
+	 * @param authorizationParamName the authorization parameter name
+	 */
 	public void setAuthorizationParamName(String authorizationParamName) {
 		this.authorizationParamName = authorizationParamName;
 	}

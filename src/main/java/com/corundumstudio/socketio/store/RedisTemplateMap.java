@@ -24,7 +24,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ * A {@link Map} view backed by a Redis hash accessed through Spring's
+ * {@link RedisTemplate}.
+ *
+ * <p>Each instance is bound to a single hash key (the {@code name}) and delegates
+ * read/write operations to {@link BoundHashOperations}, allowing Socket.IO room and
+ * session data to be persisted in Redis.</p>
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
 @SuppressWarnings("unchecked")
 public class RedisTemplateMap<K, V> implements Map<K, V> {
@@ -32,6 +40,11 @@ public class RedisTemplateMap<K, V> implements Map<K, V> {
 	private final String name;
 	private final BoundHashOperations<Object, Object, Object> hashOperations;
 
+	/**
+	 * Construct a map view bound to the given Redis hash key.
+	 * @param redisTemplate the Redis template used to access the hash
+	 * @param name the Redis hash key backing this map
+	 */
 	public RedisTemplateMap(RedisTemplate<Object, Object> redisTemplate, String name) {
 		this.name = name;
 		this.hashOperations = redisTemplate.boundHashOps(name);

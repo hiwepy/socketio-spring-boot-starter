@@ -19,6 +19,18 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Auto-configuration that backs the Socket.IO server with Redis through Redisson.
+ *
+ * <p>Activated when Redisson is on the classpath and
+ * {@code socket-io.cache.redisson.enabled=true}. It provisions the Redisson codec,
+ * the address resolver group factory, three Redisson clients (one for general
+ * storage, one for publishing and one for subscribing) and exposes them through a
+ * {@link RedissonExtStoreFactory}.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Configuration
 @AutoConfigureBefore({ SocketIOServerAutoConfiguration.class})
 @ConditionalOnClass({ Redisson.class })
@@ -26,6 +38,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties({ SocketIORedissonProperties.class })
 public class SocketIORedissonConfiguration {
 
+	/**
+	 * Create the default {@link Codec} used to serialize Redisson values (JSON via Jackson).
+	 * @return a JSON Jackson codec
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public Codec codec() {
@@ -41,6 +57,16 @@ public class SocketIORedissonConfiguration {
 		return new DnsAddressResolverGroupFactory();
 	}
 
+	/**
+	 * Build the Redisson {@link Config} from the bound properties, selecting the
+	 * appropriate server configuration (single, sentinel, cluster, master/slave or
+	 * replicated) based on the configured {@code server} mode.
+	 * @param properties the Redisson properties
+	 * @param addressResolverGroupFactory the address resolver group factory
+	 * @param codec the codec used to serialize values
+	 * @param eventLoopGroup the optional shared Netty event loop group
+	 * @return the resolved Redisson configuration
+	 */
 	@Bean
 	public Config redissonConfig(SocketIORedissonProperties properties,
 								 AddressResolverGroupFactory addressResolverGroupFactory,
@@ -87,24 +113,46 @@ public class SocketIORedissonConfiguration {
 		return config;
 	}
 
+	/**
+	 * Create the default Redisson client used for general session storage.
+	 * @param redissonConfig the Redisson configuration
+	 * @return a new Redisson client
+	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public Redisson redissonClient(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
 
+	/**
+	 * Create the Redisson client dedicated to publishing pub/sub messages.
+	 * @param redissonConfig the Redisson configuration
+	 * @return a new Redisson client dedicated to publishing
+	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public Redisson redissonPub(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
 
+	/**
+	 * Create the Redisson client dedicated to subscribing to pub/sub messages.
+	 * @param redissonConfig the Redisson configuration
+	 * @return a new Redisson client dedicated to subscribing
+	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public Redisson redissonSub(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
 
+	/**
+	 * Create the {@link StoreFactory} backed by the three Redisson clients.
+	 * @param redisClient the general-purpose Redisson client
+	 * @param redisPub the publishing Redisson client
+	 * @param redisSub the subscribing Redisson client
+	 * @return a Redisson-backed store factory
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public StoreFactory clientStoreFactory(Redisson redisClient, Redisson redisPub, Redisson redisSub) {

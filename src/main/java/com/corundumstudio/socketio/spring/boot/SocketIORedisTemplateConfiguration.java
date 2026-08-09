@@ -22,6 +22,18 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+/**
+ * Auto-configuration that backs the Socket.IO server with Redis through Spring's
+ * {@link RedisTemplate}.
+ *
+ * <p>Activated when {@code socket-io.cache.redis-template.enabled=true}. It builds a
+ * Jackson-backed {@link RedisTemplate} for session storage and a
+ * {@link RedisMessageListenerContainer} for pub/sub messaging, wiring them into a
+ * {@link RedisTemplateStoreFactory}.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @AutoConfigureBefore({ SocketIOServerAutoConfiguration.class})
@@ -29,6 +41,13 @@ import java.net.UnknownHostException;
 @EnableConfigurationProperties({ SocketIORedisTemplateProperties.class })
 public class SocketIORedisTemplateConfiguration {
 
+	/**
+	 * Build the {@link RedisTemplate} used by the Socket.IO session store, using a
+	 * Jackson2Json serializer for values and a String serializer for keys.
+	 * @param connectionFactory the Redis connection factory
+	 * @return a configured Redis template
+	 * @throws UnknownHostException never thrown; kept for API compatibility
+	 */
 	public RedisTemplate<Object, Object> socketIoRedisTemplate(RedisConnectionFactory connectionFactory) throws UnknownHostException {
 		RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(connectionFactory);
@@ -59,6 +78,13 @@ public class SocketIORedisTemplateConfiguration {
 		return redisTemplate;
 	}
 
+	/**
+	 * Build the {@link RedisMessageListenerContainer} used for pub/sub messaging with
+	 * a String topic serializer so that publish and subscribe sides agree on the wire
+	 * format.
+	 * @param connectionFactory the Redis connection factory
+	 * @return a configured message listener container
+	 */
 	public RedisMessageListenerContainer socketIoRedisMessageListenerContainer(RedisConnectionFactory connectionFactory) {
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
@@ -67,6 +93,12 @@ public class SocketIORedisTemplateConfiguration {
 		return container;
 	}
 
+	/**
+	 * Create the {@link StoreFactory} backed by Redis via {@link RedisTemplate}.
+	 * @param connectionFactory the Redis connection factory
+	 * @return a RedisTemplate-backed store factory
+	 * @throws IOException if building the underlying Redis template fails
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public StoreFactory clientStoreFactory(RedisConnectionFactory connectionFactory) throws IOException {

@@ -13,6 +13,17 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Auto-configuration that backs the Socket.IO server with a Hazelcast cluster.
+ *
+ * <p>Activated when the Hazelcast client is on the classpath and
+ * {@code socket-io.cache.hazelcast.enabled=true}. It provisions three Hazelcast
+ * client instances (one for general storage, one for publishing and one for
+ * subscribing) and exposes them through a {@link HazelcastExtStoreFactory}.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Configuration
 @AutoConfigureBefore({ SocketIOServerAutoConfiguration.class})
 @ConditionalOnClass({HazelcastClient.class})
@@ -23,24 +34,43 @@ public class SocketIOHazelcastConfiguration {
 	@Autowired
 	private SocketIOHazelcastProperties config;
 
+	/**
+	 * Create the default Hazelcast client used for general session storage.
+	 * @return a new Hazelcast client
+	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public HazelcastInstance hazelcastClient() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
 
+	/**
+	 * Create the Hazelcast client used for publishing pub/sub messages.
+	 * @return a new Hazelcast client dedicated to publishing
+	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public HazelcastInstance hazelcastPub() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
 
+	/**
+	 * Create the Hazelcast client used for subscribing to pub/sub messages.
+	 * @return a new Hazelcast client dedicated to subscribing
+	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
 	public HazelcastInstance hazelcastSub() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
 
+	/**
+	 * Create the {@link StoreFactory} backed by the three Hazelcast clients.
+	 * @param hazelcastClient the general-purpose Hazelcast client
+	 * @param hazelcastPub the publishing Hazelcast client
+	 * @param hazelcastSub the subscribing Hazelcast client
+	 * @return a Hazelcast-backed store factory
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public StoreFactory clientStoreFactory(HazelcastInstance hazelcastClient, HazelcastInstance hazelcastPub, HazelcastInstance hazelcastSub) {
