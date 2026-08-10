@@ -25,7 +25,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * the Hazelcast {@link ClientConfig} with an {@code enabled} flag used to activate
  * the Hazelcast store auto-configuration.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @ConfigurationProperties(SocketIOHazelcastProperties.PREFIX)

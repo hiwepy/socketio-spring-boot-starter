@@ -25,7 +25,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * the Redisson server configuration (single, sentinel, master/slave, replicated or
  * cluster) along with thread pool, transport and cleanup tuning options.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @ConfigurationProperties(SocketIORedissonProperties.PREFIX)

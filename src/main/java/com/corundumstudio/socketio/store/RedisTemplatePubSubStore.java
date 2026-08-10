@@ -38,7 +38,7 @@ import java.util.concurrent.ConcurrentMap;
  * arrive. The originating node id is attached to every published message so that
  * subscribers can filter messages emitted by themselves if needed.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class RedisTemplatePubSubStore implements PubSubStore {

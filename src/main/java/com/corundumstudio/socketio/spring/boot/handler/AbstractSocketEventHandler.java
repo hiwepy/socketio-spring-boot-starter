@@ -32,7 +32,7 @@ import java.util.UUID;
  * <p>Subclasses typically extend this class, override the connect/disconnect callbacks
  * and add their own {@code @OnEvent} methods to handle domain-specific events.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @Slf4j

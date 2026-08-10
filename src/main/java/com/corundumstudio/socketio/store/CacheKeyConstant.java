@@ -6,7 +6,7 @@ package com.corundumstudio.socketio.store;
  * <p>Held separately from {@link CacheKey} so that they can be referenced directly
  * when building keys without going through the enum.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public abstract class CacheKeyConstant {

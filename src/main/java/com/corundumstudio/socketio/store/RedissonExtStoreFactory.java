@@ -12,7 +12,7 @@ import java.util.UUID;
  * <p>Extends {@link RedissonStoreFactory} so that pub/sub is handled by Redisson's
  * topics while session data is held in {@link RedissonExtStore}.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class RedissonExtStoreFactory extends RedissonStoreFactory {

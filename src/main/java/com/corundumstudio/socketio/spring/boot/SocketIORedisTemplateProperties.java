@@ -24,7 +24,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * exposes the {@code enabled} flag used to activate the
  * {@link SocketIORedisTemplateConfiguration RedisTemplate} store.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @ConfigurationProperties(SocketIORedisTemplateProperties.PREFIX)

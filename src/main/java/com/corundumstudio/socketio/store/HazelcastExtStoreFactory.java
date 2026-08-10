@@ -11,7 +11,7 @@ import java.util.UUID;
  * <p>Extends {@link HazelcastStoreFactory} so that the pub/sub side is handled by the
  * Hazelcast topics while session data is held in {@link HazelcastExtStore}.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class HazelcastExtStoreFactory extends HazelcastStoreFactory {

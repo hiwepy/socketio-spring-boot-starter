@@ -23,7 +23,7 @@ package org.redisson.config;
  * sentinel and single-server modes, so that the active topology can be selected at
  * construction time from the bound Socket.IO properties.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 

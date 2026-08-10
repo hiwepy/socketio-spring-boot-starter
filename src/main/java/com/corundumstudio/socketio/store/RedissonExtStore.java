@@ -12,7 +12,7 @@ import java.util.UUID;
  * the session id, so that session data is shared across all Socket.IO server nodes
  * connected to the same Redis.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class RedissonExtStore implements Store{

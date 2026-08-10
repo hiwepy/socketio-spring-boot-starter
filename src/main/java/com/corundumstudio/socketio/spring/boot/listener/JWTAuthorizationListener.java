@@ -29,7 +29,7 @@ import org.springframework.util.StringUtils;
  * present it is attached to the handshake as the auth token and authorization
  * succeeds; otherwise authorization fails.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class JWTAuthorizationListener implements AuthorizationListener {

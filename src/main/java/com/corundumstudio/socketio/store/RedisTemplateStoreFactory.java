@@ -30,7 +30,7 @@ import java.util.UUID;
  * <p>Also provides the {@link RedisTemplatePubSubStore} used for cross-node pub/sub
  * messaging and {@link RedisTemplateMap} instances for room/scoped data.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class RedisTemplateStoreFactory extends BaseStoreFactory {

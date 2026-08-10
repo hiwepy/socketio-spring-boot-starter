@@ -31,7 +31,7 @@ import java.net.UnknownHostException;
  * {@link RedisMessageListenerContainer} for pub/sub messaging, wiring them into a
  * {@link RedisTemplateStoreFactory}.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @Configuration

@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  * read/write operations to {@link BoundHashOperations}, allowing Socket.IO room and
  * session data to be persisted in Redis.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @SuppressWarnings("unchecked")

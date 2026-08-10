@@ -12,7 +12,7 @@ import java.util.UUID;
  * allowing session data to be shared across all Socket.IO server nodes that join the
  * Hazelcast cluster.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class HazelcastExtStore  implements Store {

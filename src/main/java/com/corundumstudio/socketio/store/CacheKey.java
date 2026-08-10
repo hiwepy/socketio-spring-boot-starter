@@ -13,7 +13,7 @@ import java.util.function.Function;
  * final Redis key for a given argument, so that session, region and location keys
  * can be constructed in a consistent way.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public enum CacheKey {

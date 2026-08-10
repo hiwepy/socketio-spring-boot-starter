@@ -25,7 +25,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * underlying {@link Configuration} with a flag controlling how strictly the native
  * epoll library availability is enforced on Linux.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @ConfigurationProperties(SocketIOServerProperties.PREFIX)

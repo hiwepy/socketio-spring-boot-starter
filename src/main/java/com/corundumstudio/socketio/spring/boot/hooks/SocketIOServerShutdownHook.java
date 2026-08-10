@@ -8,7 +8,7 @@ import com.corundumstudio.socketio.SocketIOServer;
  * <p>Registered so that the Socket.IO server releases its network resources and
  * cleanly disconnects all clients on application shutdown.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class SocketIOServerShutdownHook extends Thread {
