@@ -25,11 +25,7 @@ public class SocketIOServerShutdownHook extends Thread {
 
 	/**
 	 * Stop the Socket.IO server, swallowing any errors so that JVM shutdown is not aborted.
-	 */
 	@Override
-    /**
-     * <p>Run.</p>
-     */
 	public void run() {
 		try {
 			server.stop();

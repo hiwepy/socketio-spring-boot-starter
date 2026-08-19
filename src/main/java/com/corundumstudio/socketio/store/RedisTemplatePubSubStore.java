@@ -69,13 +69,7 @@ public class RedisTemplatePubSubStore implements PubSubStore {
      * message with the current node id.
      * @param type the pub/sub message type (channel name)
      * @param msg the message to publish
-     */
     @Override
-    /**
-     * <p>Publish.</p>
-     * @param type
-     * @param msg
-     */
     public void publish(PubSubType type, PubSubMessage msg) {
         msg.setNodeId(nodeId);
         redisTemplate.convertAndSend(type.toString(), msg);
@@ -115,12 +109,7 @@ public class RedisTemplatePubSubStore implements PubSubStore {
     /**
      * Unsubscribe all listeners registered for the given pub/sub type.
      * @param type the pub/sub message type (channel name) to unsubscribe from
-     */
     @Override
-    /**
-     * <p>Unsubscribe.</p>
-     * @param type
-     */
     public void unsubscribe(PubSubType type) {
         String name = type.toString();
         Queue<MessageListener> regListeners = map.remove(name);
@@ -132,11 +121,7 @@ public class RedisTemplatePubSubStore implements PubSubStore {
     /**
      * Release any resources held by this store; the RedisTemplate-based implementation
      * has nothing to release so this is a no-op.
-     */
     @Override
-    /**
-     * <p>Shutdown.</p>
-     */
     public void shutdown() {
     }
 

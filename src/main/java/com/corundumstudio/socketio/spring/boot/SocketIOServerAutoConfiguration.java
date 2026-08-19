@@ -135,13 +135,7 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	 * Expose the {@link PubSubStore} used to broadcast events across server nodes.
 	 * @param socketServer the Socket.IO server
 	 * @return the pub/sub store of the active store factory
-	 */
 	@Bean
-    /**
-     * <p>Pub sub store.</p>
-     * @param socketServer
-     * @return the pub sub store
-     */
 	public PubSubStore pubSubStore(SocketIOServer socketServer) {
 		return socketServer.getConfiguration().getStoreFactory().pubSubStore();
 	}
@@ -152,11 +146,7 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	/**
 	 * Stop the Socket.IO server when the Spring container is destroyed.
 	 * @throws Exception if stopping the server fails
-	 */
 	@Override
-    /**
-     * <p>Destroy.</p>
-     */
 	public void destroy() throws Exception {
 		if (socketIOServer != null) {
 			socketIOServer.stop();
@@ -168,12 +158,7 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	 * a JVM shutdown hook that releases resources on exit.
 	 * @param args the incoming application arguments
 	 * @throws Exception if starting the server fails
-	 */
 	@Override
-    /**
-     * <p>Run.</p>
-     * @param args
-     */
 	public void run(String... args) throws Exception {
 		if (socketIOServer != null) {
 

@@ -58,12 +58,7 @@ public abstract class AbstractSocketEventHandler {
 	 * parameters of the handshake and sends a {@code "welcome"} event to the client.</p>
 	 *
 	 * @param client the newly connected client
-	 */
 	@OnConnect
-    /**
-     * <p>On connect.</p>
-     * @param client
-     */
 	public void onConnect(SocketIOClient client) {
 		log.debug("Connect OK.");
 		log.debug("Session ID  : {}", client.getSessionId());
@@ -79,12 +74,7 @@ public abstract class AbstractSocketEventHandler {
 	 * <p>The default implementation logs the disconnect and the session id.</p>
 	 *
 	 * @param client the disconnecting client
-	 */
 	@OnDisconnect
-    /**
-     * <p>On disconnect.</p>
-     * @param client
-     */
 	public void onDisconnect(SocketIOClient client) {
 		log.debug("Disconnect OK.");
 		log.debug("Session ID  : {}", client.getSessionId());

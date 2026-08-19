@@ -37,13 +37,8 @@ public class SocketIOHazelcastConfiguration {
 	/**
 	 * Create the default Hazelcast client used for general session storage.
 	 * @return a new Hazelcast client
-	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-    /**
-     * <p>Hazelcast client.</p>
-     * @return the hazelcast client
-     */
 	public HazelcastInstance hazelcastClient() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
@@ -51,13 +46,8 @@ public class SocketIOHazelcastConfiguration {
 	/**
 	 * Create the Hazelcast client used for publishing pub/sub messages.
 	 * @return a new Hazelcast client dedicated to publishing
-	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-    /**
-     * <p>Hazelcast pub.</p>
-     * @return the hazelcast pub
-     */
 	public HazelcastInstance hazelcastPub() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
@@ -65,13 +55,8 @@ public class SocketIOHazelcastConfiguration {
 	/**
 	 * Create the Hazelcast client used for subscribing to pub/sub messages.
 	 * @return a new Hazelcast client dedicated to subscribing
-	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-    /**
-     * <p>Hazelcast sub.</p>
-     * @return the hazelcast sub
-     */
 	public HazelcastInstance hazelcastSub() {
 		return HazelcastClient.newHazelcastClient(config);
 	}

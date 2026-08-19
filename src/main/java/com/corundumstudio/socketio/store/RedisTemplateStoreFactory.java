@@ -53,13 +53,7 @@ public class RedisTemplateStoreFactory extends BaseStoreFactory {
      * Create a new {@link RedisTemplateStore} for the given session id.
      * @param sessionId the Socket.IO client session id
      * @return a new Redis-backed store
-     */
     @Override
-    /**
-     * <p>Creates a new store.</p>
-     * @param sessionId
-     * @return the create store
-     */
     public Store createStore(UUID sessionId) {
         return new RedisTemplateStore(sessionId, redisTemplate);
     }
@@ -67,12 +61,7 @@ public class RedisTemplateStoreFactory extends BaseStoreFactory {
     /**
      * Get the {@link PubSubStore} used to broadcast events across server nodes.
      * @return the Redis pub/sub store
-     */
     @Override
-    /**
-     * <p>Pub sub store.</p>
-     * @return the pub sub store
-     */
     public PubSubStore pubSubStore() {
         return pubSubStore;
     }
@@ -80,11 +69,7 @@ public class RedisTemplateStoreFactory extends BaseStoreFactory {
     /**
      * Release any resources held by this factory; the RedisTemplate-based
      * implementation has nothing to release so this is a no-op.
-     */
     @Override
-    /**
-     * <p>Shutdown.</p>
-     */
     public void shutdown() {
 
     }

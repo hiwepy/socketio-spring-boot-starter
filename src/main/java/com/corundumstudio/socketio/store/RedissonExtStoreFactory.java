@@ -34,13 +34,7 @@ public class RedissonExtStoreFactory extends RedissonStoreFactory {
      * Create a new {@link RedissonExtStore} for the given session id.
      * @param sessionId the Socket.IO client session id
      * @return a new Redisson-backed store
-     */
     @Override
-    /**
-     * <p>Creates a new store.</p>
-     * @param sessionId
-     * @return the create store
-     */
     public Store createStore(UUID sessionId) {
         return new RedissonExtStore(sessionId, redisClient);
     }

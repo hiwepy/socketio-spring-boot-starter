@@ -41,13 +41,8 @@ public class SocketIORedissonConfiguration {
 	/**
 	 * Create the default {@link Codec} used to serialize Redisson values (JSON via Jackson).
 	 * @return a JSON Jackson codec
-	 */
 	@Bean
 	@ConditionalOnMissingBean
-    /**
-     * <p>Codec.</p>
-     * @return the codec
-     */
 	public Codec codec() {
 		return new JsonJacksonCodec();
 	}
@@ -125,14 +120,8 @@ public class SocketIORedissonConfiguration {
 	 * Create the default Redisson client used for general session storage.
 	 * @param redissonConfig the Redisson configuration
 	 * @return a new Redisson client
-	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-    /**
-     * <p>Redisson client.</p>
-     * @param redissonConfig
-     * @return the redisson client
-     */
 	public Redisson redissonClient(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
@@ -141,14 +130,8 @@ public class SocketIORedissonConfiguration {
 	 * Create the Redisson client dedicated to publishing pub/sub messages.
 	 * @param redissonConfig the Redisson configuration
 	 * @return a new Redisson client dedicated to publishing
-	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-    /**
-     * <p>Redisson pub.</p>
-     * @param redissonConfig
-     * @return the redisson pub
-     */
 	public Redisson redissonPub(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
@@ -157,14 +140,8 @@ public class SocketIORedissonConfiguration {
 	 * Create the Redisson client dedicated to subscribing to pub/sub messages.
 	 * @param redissonConfig the Redisson configuration
 	 * @return a new Redisson client dedicated to subscribing
-	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
-    /**
-     * <p>Redisson sub.</p>
-     * @param redissonConfig
-     * @return the redisson sub
-     */
 	public Redisson redissonSub(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}

@@ -33,13 +33,7 @@ public class HazelcastExtStoreFactory extends HazelcastStoreFactory {
      * Create a new {@link HazelcastExtStore} for the given session id.
      * @param sessionId the Socket.IO client session id
      * @return a new Hazelcast-backed store
-     */
     @Override
-    /**
-     * <p>Creates a new store.</p>
-     * @param sessionId
-     * @return the create store
-     */
     public Store createStore(UUID sessionId) {
         return new HazelcastExtStore(sessionId, hazelcastClient);
     }
