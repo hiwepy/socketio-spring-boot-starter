@@ -101,6 +101,11 @@ public class SocketIORedisTemplateConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
+    /**
+     * <p>Client store factory.</p>
+     * @param connectionFactory
+     * @return the client store factory
+     */
 	public StoreFactory clientStoreFactory(RedisConnectionFactory connectionFactory) throws IOException {
 		return new RedisTemplateStoreFactory(socketIoRedisTemplate(connectionFactory), socketIoRedisMessageListenerContainer(connectionFactory));
 	}

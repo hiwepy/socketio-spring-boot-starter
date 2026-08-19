@@ -34,6 +34,11 @@ public class RedissonExtStore implements Store{
      * @param value the entry value
      */
     @Override
+    /**
+     * <p>Sets the set.</p>
+     * @param key
+     * @param value
+     */
     public void set(String key, Object value) {
         map.put(key, value);
     }
@@ -55,6 +60,11 @@ public class RedissonExtStore implements Store{
      * @return {@code true} if the key is present
      */
     @Override
+    /**
+     * <p>Has.</p>
+     * @param key
+     * @return the has
+     */
     public boolean has(String key) {
         return map.containsKey(key);
     }
@@ -64,6 +74,10 @@ public class RedissonExtStore implements Store{
      * @param key the entry key
      */
     @Override
+    /**
+     * <p>Del.</p>
+     * @param key
+     */
     public void del(String key) {
         map.remove(key);
     }

@@ -44,6 +44,10 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	 */
 	@Bean
 	@ConditionalOnMissingBean
+    /**
+     * <p>Socket authz listener.</p>
+     * @return the socket authz listener
+     */
 	public AuthorizationListener socketAuthzListener() {
 		return new SuccessAuthorizationListener();
 	}
@@ -54,6 +58,10 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	 */
 	@Bean
 	@ConditionalOnMissingBean
+    /**
+     * <p>Exception listener.</p>
+     * @return the exception listener
+     */
 	public ExceptionListener exceptionListener() {
 		return  new DefaultExceptionListener();
 	}
@@ -64,6 +72,10 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	 */
 	@Bean
 	@ConditionalOnMissingBean
+    /**
+     * <p>Client store factory.</p>
+     * @return the client store factory
+     */
 	public StoreFactory clientStoreFactory() {
 		return new MemoryStoreFactory();
 	}
@@ -110,6 +122,11 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	 * @return the Spring annotation scanner
 	 */
 	@Bean
+    /**
+     * <p>Spring annotation scanner.</p>
+     * @param socketServer
+     * @return the spring annotation scanner
+     */
 	public SpringAnnotationScanner springAnnotationScanner(SocketIOServer socketServer) {
 		return new SpringAnnotationScanner(socketServer);
 	}
@@ -120,6 +137,11 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	 * @return the pub/sub store of the active store factory
 	 */
 	@Bean
+    /**
+     * <p>Pub sub store.</p>
+     * @param socketServer
+     * @return the pub sub store
+     */
 	public PubSubStore pubSubStore(SocketIOServer socketServer) {
 		return socketServer.getConfiguration().getStoreFactory().pubSubStore();
 	}
@@ -132,6 +154,9 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	 * @throws Exception if stopping the server fails
 	 */
 	@Override
+    /**
+     * <p>Destroy.</p>
+     */
 	public void destroy() throws Exception {
 		if (socketIOServer != null) {
 			socketIOServer.stop();
@@ -145,6 +170,10 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	 * @throws Exception if starting the server fails
 	 */
 	@Override
+    /**
+     * <p>Run.</p>
+     * @param args
+     */
 	public void run(String... args) throws Exception {
 		if (socketIOServer != null) {
 

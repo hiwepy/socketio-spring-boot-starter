@@ -50,6 +50,11 @@ public class JWTAuthorizationListener implements AuthorizationListener {
 	 * @return {@link AuthorizationResult#SUCCESSFUL_AUTHORIZATION} if a token is present, otherwise {@link AuthorizationResult#FAILED_AUTHORIZATION}
 	 */
 	@Override
+    /**
+     * <p>Returns the authorization result.</p>
+     * @param data
+     * @return the get authorization result
+     */
 	public AuthorizationResult getAuthorizationResult(HandshakeData data) {
 		String token = obtainToken(data);
 

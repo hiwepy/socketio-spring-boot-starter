@@ -60,6 +60,10 @@ public abstract class AbstractSocketEventHandler {
 	 * @param client the newly connected client
 	 */
 	@OnConnect
+    /**
+     * <p>On connect.</p>
+     * @param client
+     */
 	public void onConnect(SocketIOClient client) {
 		log.debug("Connect OK.");
 		log.debug("Session ID  : {}", client.getSessionId());
@@ -77,6 +81,10 @@ public abstract class AbstractSocketEventHandler {
 	 * @param client the disconnecting client
 	 */
 	@OnDisconnect
+    /**
+     * <p>On disconnect.</p>
+     * @param client
+     */
 	public void onDisconnect(SocketIOClient client) {
 		log.debug("Disconnect OK.");
 		log.debug("Session ID  : {}", client.getSessionId());

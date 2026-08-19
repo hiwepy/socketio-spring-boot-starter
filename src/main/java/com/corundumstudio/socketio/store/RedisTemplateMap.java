@@ -51,6 +51,10 @@ public class RedisTemplateMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
+    /**
+     * <p>Size.</p>
+     * @return the size
+     */
 	public int size() {
 		return hashOperations.size().intValue();
 	}
@@ -64,27 +68,53 @@ public class RedisTemplateMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
+    /**
+     * <p>Contains key.</p>
+     * @param key
+     * @return the contains key
+     */
 	public boolean containsKey(Object key) {
 		return hashOperations.hasKey(key);
 	}
 
 	@Override
+    /**
+     * <p>Contains value.</p>
+     * @param value
+     * @return the contains value
+     */
 	public boolean containsValue(Object value) {
 		return hashOperations.entries().containsValue(value);
 	}
 
 	@Override
+    /**
+     * <p>Returns the get.</p>
+     * @param key
+     * @return the get
+     */
 	public V get(Object key) {
 		return (V) hashOperations.get(key);
 	}
 
 	@Override
+    /**
+     * <p>Put.</p>
+     * @param key
+     * @param value
+     * @return the put
+     */
 	public V put(Object key, Object value) {
 		hashOperations.put(key, value);
 		return (V) value;
 	}
 
 	@Override
+    /**
+     * <p>Remove.</p>
+     * @param key
+     * @return the remove
+     */
 	public V remove(Object key) {
 		Object value = hashOperations.get(key);
 		hashOperations.delete(name, key);
@@ -92,21 +122,36 @@ public class RedisTemplateMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
+    /**
+     * <p>Put all.</p>
+     * @param m
+     */
 	public void putAll(Map<? extends K, ? extends V> m) {
 		hashOperations.putAll(m);
 	}
 
 	@Override
+    /**
+     * <p>Clear.</p>
+     */
 	public void clear() {
 		hashOperations.delete(name);
 	}
 
 	@Override
+    /**
+     * <p>Key set.</p>
+     * @return the key set
+     */
 	public Set<K> keySet() {
 		return (Set<K>) hashOperations.keys();
 	}
 
 	@Override
+    /**
+     * <p>Values.</p>
+     * @return the values
+     */
 	public Collection<V> values() {
 		return (Collection<V>) hashOperations.values();
 	}

@@ -35,6 +35,11 @@ public class HazelcastExtStoreFactory extends HazelcastStoreFactory {
      * @return a new Hazelcast-backed store
      */
     @Override
+    /**
+     * <p>Creates a new store.</p>
+     * @param sessionId
+     * @return the create store
+     */
     public Store createStore(UUID sessionId) {
         return new HazelcastExtStore(sessionId, hazelcastClient);
     }

@@ -51,6 +51,11 @@ public class RedisTemplateStore implements Store {
      * @param value the entry value
      */
     @Override
+    /**
+     * <p>Sets the set.</p>
+     * @param key
+     * @param value
+     */
     public void set(String key, Object value) {
     	hashOperations.put(key, value);
     }
@@ -76,6 +81,11 @@ public class RedisTemplateStore implements Store {
      * @return {@code true} if the key is present
      */
     @Override
+    /**
+     * <p>Has.</p>
+     * @param key
+     * @return the has
+     */
     public boolean has(String key) {
         return hashOperations.hasKey(key);
     }
@@ -85,6 +95,10 @@ public class RedisTemplateStore implements Store {
      * @param key the entry key
      */
     @Override
+    /**
+     * <p>Del.</p>
+     * @param key
+     */
     public void del(String key) {
     	hashOperations.delete(key);
     }

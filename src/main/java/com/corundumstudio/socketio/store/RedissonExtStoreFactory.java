@@ -36,6 +36,11 @@ public class RedissonExtStoreFactory extends RedissonStoreFactory {
      * @return a new Redisson-backed store
      */
     @Override
+    /**
+     * <p>Creates a new store.</p>
+     * @param sessionId
+     * @return the create store
+     */
     public Store createStore(UUID sessionId) {
         return new RedissonExtStore(sessionId, redisClient);
     }

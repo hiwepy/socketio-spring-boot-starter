@@ -40,6 +40,10 @@ public class SocketIOHazelcastConfiguration {
 	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
+    /**
+     * <p>Hazelcast client.</p>
+     * @return the hazelcast client
+     */
 	public HazelcastInstance hazelcastClient() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
@@ -50,6 +54,10 @@ public class SocketIOHazelcastConfiguration {
 	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
+    /**
+     * <p>Hazelcast pub.</p>
+     * @return the hazelcast pub
+     */
 	public HazelcastInstance hazelcastPub() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
@@ -60,6 +68,10 @@ public class SocketIOHazelcastConfiguration {
 	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
+    /**
+     * <p>Hazelcast sub.</p>
+     * @return the hazelcast sub
+     */
 	public HazelcastInstance hazelcastSub() {
 		return HazelcastClient.newHazelcastClient(config);
 	}
@@ -73,6 +85,13 @@ public class SocketIOHazelcastConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
+    /**
+     * <p>Client store factory.</p>
+     * @param hazelcastClient
+     * @param hazelcastPub
+     * @param hazelcastSub
+     * @return the client store factory
+     */
 	public StoreFactory clientStoreFactory(HazelcastInstance hazelcastClient, HazelcastInstance hazelcastPub, HazelcastInstance hazelcastSub) {
 		return new HazelcastExtStoreFactory( hazelcastClient,  hazelcastPub, hazelcastSub);
 	}

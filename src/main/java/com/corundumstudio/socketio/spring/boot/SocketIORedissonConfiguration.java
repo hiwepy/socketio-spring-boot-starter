@@ -44,6 +44,10 @@ public class SocketIORedissonConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
+    /**
+     * <p>Codec.</p>
+     * @return the codec
+     */
 	public Codec codec() {
 		return new JsonJacksonCodec();
 	}
@@ -53,6 +57,10 @@ public class SocketIORedissonConfiguration {
      */
 	@Bean
 	@ConditionalOnMissingBean
+    /**
+     * <p>Address resolver group factory.</p>
+     * @return the address resolver group factory
+     */
 	public AddressResolverGroupFactory addressResolverGroupFactory() {
 		return new DnsAddressResolverGroupFactory();
 	}
@@ -120,6 +128,11 @@ public class SocketIORedissonConfiguration {
 	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
+    /**
+     * <p>Redisson client.</p>
+     * @param redissonConfig
+     * @return the redisson client
+     */
 	public Redisson redissonClient(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
@@ -131,6 +144,11 @@ public class SocketIORedissonConfiguration {
 	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
+    /**
+     * <p>Redisson pub.</p>
+     * @param redissonConfig
+     * @return the redisson pub
+     */
 	public Redisson redissonPub(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
@@ -142,6 +160,11 @@ public class SocketIORedissonConfiguration {
 	 */
 	@Bean(destroyMethod = "shutdown")
 	@ConditionalOnMissingBean
+    /**
+     * <p>Redisson sub.</p>
+     * @param redissonConfig
+     * @return the redisson sub
+     */
 	public Redisson redissonSub(Config redissonConfig) {
 		return (Redisson) Redisson.create(redissonConfig);
 	}
@@ -155,6 +178,13 @@ public class SocketIORedissonConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
+    /**
+     * <p>Client store factory.</p>
+     * @param redisClient
+     * @param redisPub
+     * @param redisSub
+     * @return the client store factory
+     */
 	public StoreFactory clientStoreFactory(Redisson redisClient, Redisson redisPub, Redisson redisSub) {
 		return new RedissonExtStoreFactory(redisClient, redisPub, redisSub);
 	}

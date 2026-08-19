@@ -55,6 +55,11 @@ public class RedisTemplateStoreFactory extends BaseStoreFactory {
      * @return a new Redis-backed store
      */
     @Override
+    /**
+     * <p>Creates a new store.</p>
+     * @param sessionId
+     * @return the create store
+     */
     public Store createStore(UUID sessionId) {
         return new RedisTemplateStore(sessionId, redisTemplate);
     }
@@ -64,6 +69,10 @@ public class RedisTemplateStoreFactory extends BaseStoreFactory {
      * @return the Redis pub/sub store
      */
     @Override
+    /**
+     * <p>Pub sub store.</p>
+     * @return the pub sub store
+     */
     public PubSubStore pubSubStore() {
         return pubSubStore;
     }
@@ -73,6 +82,9 @@ public class RedisTemplateStoreFactory extends BaseStoreFactory {
      * implementation has nothing to release so this is a no-op.
      */
     @Override
+    /**
+     * <p>Shutdown.</p>
+     */
     public void shutdown() {
 
     }
