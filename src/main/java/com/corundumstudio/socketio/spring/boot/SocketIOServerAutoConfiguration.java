@@ -39,55 +39,47 @@ import org.springframework.context.annotation.Configuration;
 public class SocketIOServerAutoConfiguration implements DisposableBean, CommandLineRunner {
 
 	/**
-	 * Create the default {@link AuthorizationListener} that allows every handshake.
+	 * <p>Creates the default {@link AuthorizationListener} that allows every handshake.</p>
+	 *
 	 * @return a successful authorization listener
 	 */
 	@Bean
 	@ConditionalOnMissingBean
-    /**
-     * <p>Socket authz listener.</p>
-     * @return the socket authz listener
-     */
 	public AuthorizationListener socketAuthzListener() {
 		return new SuccessAuthorizationListener();
 	}
 
 	/**
-	 * Create the default {@link ExceptionListener}.
+	 * <p>Creates the default {@link ExceptionListener}.</p>
+	 *
 	 * @return a default exception listener
 	 */
 	@Bean
 	@ConditionalOnMissingBean
-    /**
-     * <p>Exception listener.</p>
-     * @return the exception listener
-     */
 	public ExceptionListener exceptionListener() {
-		return  new DefaultExceptionListener();
+		return new DefaultExceptionListener();
 	}
 
 	/**
-	 * Create the default in-memory {@link StoreFactory} used to persist session data.
+	 * <p>Creates the default in-memory {@link StoreFactory} used to persist session data.</p>
+	 *
 	 * @return a memory-based store factory
 	 */
 	@Bean
 	@ConditionalOnMissingBean
-    /**
-     * <p>Client store factory.</p>
-     * @return the client store factory
-     */
 	public StoreFactory clientStoreFactory() {
 		return new MemoryStoreFactory();
 	}
 
 	/**
-	 * Create the {@link SocketIOServer} bean from the resolved configuration, listener
+	 * <p>Creates the {@link SocketIOServer} bean from the resolved configuration, listener
 	 * and store factory. Native epoll is gracefully downgraded if the library is not
-	 * available and {@code failIfNativeEpollLibNotPresent} is {@code false}.
-	 * @param config the Socket.IO server configuration
-	 * @param authorizationListener the authorization listener
-	 * @param exceptionListener the exception listener
-	 * @param clientStoreFactory the session store factory
+	 * available and {@code failIfNativeEpollLibNotPresent} is {@code false}.</p>
+	 *
+	 * @param config                 the Socket.IO server configuration
+	 * @param authorizationListener  the authorization listener
+	 * @param exceptionListener      the exception listener
+	 * @param clientStoreFactory     the session store factory
 	 * @return the configured, but not yet started, Socket.IO server
 	 */
 	@Bean(destroyMethod = "stop")
@@ -97,7 +89,6 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 			ExceptionListener exceptionListener,
 			StoreFactory clientStoreFactory) {
 
-		// 身份验证
 		config.setAuthorizationListener(authorizationListener);
 		config.setExceptionListener(exceptionListener);
 		config.setStoreFactory(clientStoreFactory);
@@ -111,30 +102,27 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 
 		final SocketIOServer server = new SocketIOServer(config);
 
-
 		return server;
 	}
 
 	/**
-	 * Create the {@link SpringAnnotationScanner} used to register Socket.IO event
-	 * handlers annotated with {@code @OnConnect}/{@code @OnDisconnect}/{@code @OnEvent}.
+	 * <p>Creates the {@link SpringAnnotationScanner} used to register Socket.IO event
+	 * handlers annotated with {@code @OnConnect}/{@code @OnDisconnect}/{@code @OnEvent}.</p>
+	 *
 	 * @param socketServer the Socket.IO server
 	 * @return the Spring annotation scanner
 	 */
 	@Bean
-    /**
-     * <p>Spring annotation scanner.</p>
-     * @param socketServer
-     * @return the spring annotation scanner
-     */
 	public SpringAnnotationScanner springAnnotationScanner(SocketIOServer socketServer) {
 		return new SpringAnnotationScanner(socketServer);
 	}
 
 	/**
-	 * Expose the {@link PubSubStore} used to broadcast events across server nodes.
+	 * <p>Exposes the {@link PubSubStore} used to broadcast events across server nodes.</p>
+	 *
 	 * @param socketServer the Socket.IO server
 	 * @return the pub/sub store of the active store factory
+	 */
 	@Bean
 	public PubSubStore pubSubStore(SocketIOServer socketServer) {
 		return socketServer.getConfiguration().getStoreFactory().pubSubStore();
@@ -144,8 +132,10 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	protected SocketIOServer socketIOServer;
 
 	/**
-	 * Stop the Socket.IO server when the Spring container is destroyed.
+	 * <p>Stops the Socket.IO server when the Spring container is destroyed.</p>
+	 *
 	 * @throws Exception if stopping the server fails
+	 */
 	@Override
 	public void destroy() throws Exception {
 		if (socketIOServer != null) {
@@ -154,20 +144,16 @@ public class SocketIOServerAutoConfiguration implements DisposableBean, CommandL
 	}
 
 	/**
-	 * Start the Socket.IO server after the application context is ready and register
-	 * a JVM shutdown hook that releases resources on exit.
+	 * <p>Starts the Socket.IO server after the application context is ready and registers
+	 * a JVM shutdown hook that releases resources on exit.</p>
+	 *
 	 * @param args the incoming application arguments
 	 * @throws Exception if starting the server fails
+	 */
 	@Override
 	public void run(String... args) throws Exception {
 		if (socketIOServer != null) {
-
-			/**
-			 * application，shutdown，，
-			 * ：applicationinJBOSS、Tomcat shutdown
-			 */
 			Runtime.getRuntime().addShutdownHook(new SocketIOServerShutdownHook(socketIOServer));
-
 			socketIOServer.start();
 		}
 	}
